@@ -38,6 +38,9 @@ $RECYCLE.BIN/
 .TemporaryItems
 .Trashes
 .VolumeIcon.icns
+node_modules
+.idea/*
+.vscode/*
 
 # Directories potentially created on remote AFP share
 .AppleDB

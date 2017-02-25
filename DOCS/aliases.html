@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<title>DOCKER</title>
+
+<xmp theme="journal" style="display:none;">
+
+# Aliases for bash
+
+Here are aliases you can use within bash/shell.
+
+```bash
+#GET DOCKER INFO
+container_get_ip = $'docker inspect --format=\'{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}\' ' #add container name
+container_get_info = $'docker-machine inspect --format=\'{{prettyjson .Driver}}\''
+
+container_get_nonzero_exitcodes = $'docker inspect -f \'{{if ne 0.0 .State.ExitCode }}{{.Name}} {{.State.ExitCode}}{{ end }}\' $(docker ps -aq)'
+```
+</xmp>
+
+<script src="http://strapdownjs.com/v/0.2/strapdown.js"></script>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<title>FLUENTD</title>
+
+<xmp theme="journal" style="display:none;">
+
+
+# ABOUT
+
+Fluentd has four key features that makes it suitable to build clean, reliable logging pipelines:
+
+**Unified Logging with JSON:**
+Fluentd tries to structure data as JSON as much as possible. This allows Fluentd to unify all facets of processing log data: collecting, 
+filtering, buffering, and outputting logs across multiple sources and destinations. The downstream data processing is much easier with JSON, 
+since it has enough structure to be accessible without forcing rigid schemas.
+
+**Pluggable Architecture:**
+Fluentd has a flexible plugin system that allows the community to extend its functionality. Over 300 community-contributed plugins connect 
+dozens of data sources to dozens of data outputs, manipulating the data as needed. By using plugins, you can make better use of your logs right away.
+
+**Minimum Resources Required:**
+A data collector should be lightweight so that it runs comfortably on a busy machine. Fluentd is written in a combination of C and Ruby, 
+and requires minimal system resources. The vanilla instance runs on 30-40MB of memory and can process 13,000 events/second/core.
+
+**Built-in Reliability:**
+Data loss should never happen. Fluentd supports memory- and file-based buffering to prevent inter-node data loss. 
+Fluentd also supports robust failover and can be set up for high availability.
+
+
+# INSTALL local
+
+> It's HIGHLY recommended that you set up ntpd on the node to prevent invalid timestamps in your logs.
+ 
+
+## Fedora
+```bash
+$ curl -L https://toolbelt.treasuredata.com/sh/install-redhat-td-agent2.sh | sh
+```
+
+## Debian/Ubuntu
+```bash
+$ curl -L https://toolbelt.treasuredata.com/sh/install-ubuntu-xenial-td-agent2.sh | sh
+```
+Following commands are supported
+```bash
+$ /etc/init.d/td-agent start
+$ /etc/init.d/td-agent stop
+$ /etc/init.d/td-agent restart
+$ /etc/init.d/td-agent status
+```
+Please make sure your configuration file is located at **/etc/td-agent/td-agent.conf**
+
+## RUBY
+```bash
+gem install fluentd -v "~> 0.12.0" --no-ri --no-rdoc
+```
+
+and run
+
+```bash
+$ fluentd --setup ./fluent
+$ fluentd -c ./fluent/fluent.conf -vv &
+$ echo '{"json":"message"}' | fluent-cat debug.test
+```
+
+
+> For large deployments, you must use jemalloc to avoid memory fragmentation. This is already included in the rpm and deb packages.
+
+> The Fluentd gem doesn't come with /etc/init.d/ scripts. You should use process management tools such as daemontools, runit, supervisord, or upstart.
+
+
+
+# INSTALL IMAGE
+
+```bash
+docker pull fluent/fluentd
+```
+
+# SET CONFIG
+
+Fluentd assumes configuration file is **UTF-8 or ASCII**.
+
+# List of Directives
+
+The configuration file consists of the following directives:
+
+* **source** directives determine the input sources.
+* **match** directives determine the output destinations.
+* **filter** directives determine the event processing pipelines.
+* **system** directives set system wide configuration.
+* **label** directives group the output and filter for internal routing
+* **@include** directives include other files.
+
+To make the test simple, create the example config 
+below at /tmp/fluentd/conf. This example accepts records from http, and output to stdout.
+
+```apache
+    # /tmp/fluentd.conf
+    <source>
+        @type http
+        port 9880
+        bind 0.0.0.0
+    </source>
+    <match **>
+        @type stdout
+    </match>
+ ```
+
+# RUN FLUENTD CONTAINER
+
+```bash
+$ docker run -d -p 9880:9880 -v /tmp:/fluentd/etc -e FLUENTD_CONF=fluentd.conf fluent/fluentd
+```
+
+```ini
+2017-01-30 11:52:23 +0000 [info]: reading config file path="/fluentd/etc/fluentd.conf"
+2017-01-30 11:52:23 +0000 [info]: starting fluentd-0.12.31
+2017-01-30 11:52:23 +0000 [info]: gem 'fluentd' version '0.12.31'
+2017-01-30 11:52:23 +0000 [info]: adding match pattern="**" type="stdout"
+2017-01-30 11:52:23 +0000 [info]: adding source type="http"
+2017-01-30 11:52:23 +0000 [info]: using configuration file: <ROOT>
+```
+```apache
+  <source>
+    @type http
+    port 9880
+    bind 0.0.0.0
+  </source>
+  <match **>
+    @type stdout
+  </match>
+</ROOT>
+```
+
+CHECK logs
+
+```bash
+$ docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                                         NAMES
+b495e527850c        fluent/fluentd      "/bin/sh -c 'exec ..."   2 hours ago         Up 2 hours          5140/tcp, 24224/tcp, 0.0.0.0:9880->9880/tcp   awesome_mcnulty
+
+$ docker logs b495e527850c | tail -n 1
+2017-01-30 14:04:37 +0000 sample.test: {"json":"message"}
+```
+
+
+HIGH AVAILABILITY
+=====
+
+To configure Fluentd for high availability, we assume that your network consists of ***‘log forwarders’*** and ***‘log aggregators’***.
+
+
+
+***‘log forwarders’*** are typically installed on every node to receive local events. Once an event is received, 
+they forward it to the ‘log aggregators’ through the network.
+
+***‘log aggregators’*** are daemons that continuously receive events from the log forwarders. 
+They buffer the events and periodically upload the data into the cloud.
+
+Fluentd can act as either a log forwarder or a log aggregator, depending on its configuration. 
+The next sections describes the respective setups. We assume that the active log aggregator has ip ‘192.168.0.1’ and that the backup has ip ‘192.168.0.2’.
+
+# Log Forwarder Configuration
+
+Please add the following lines to your config file for log forwarders. This will configure your log forwarders to transfer logs to log aggregators.
+
+```apache
+# TCP input
+<source>
+  @type forward
+  port 24224
+</source>
+
+# HTTP input
+<source>
+  @type http
+  port 8888
+</source>
+
+# Log Forwarding
+<match mytag.**>
+  @type forward
+
+  # primary host
+  <server>
+    host 192.168.0.1
+    port 24224
+  </server>
+  # use secondary host
+  <server>
+    host 192.168.0.2
+    port 24224
+    standby
+  </server>
+
+  # use longer flush_interval to reduce CPU usage.
+  # note that this is a trade-off against latency.
+  flush_interval 60s
+</match>
+```
+
+When the active aggregator (192.168.0.1) dies, the logs will instead be sent to the backup aggregator (192.168.0.2). If both servers die, the logs are buffered on-disk at the corresponding forwarder nodes.
+
+# Log Aggregator Configuration
+
+Please add the following lines to the config file for log aggregators. The input source for the log transfer is TCP.
+```apache
+# Input
+<source>
+  @type forward
+  port 24224
+</source>
+
+# Output
+<match mytag.**>
+  ...
+</match>
+```
+The incoming logs are buffered, then periodically uploaded into the cloud. If upload fails, the logs are stored on the local disk until the retransmission succeeds.
+
+</xmp>
+
+<script src="http://strapdownjs.com/v/0.2/strapdown.js"></script>
+</html>

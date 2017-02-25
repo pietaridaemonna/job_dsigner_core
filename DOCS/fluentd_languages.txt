@@ -1,0 +1,34 @@
+Modifying the Config File
+
+Next, please configure Fluentd to use the forward Input plugin as its data source.
+
+<source>
+  @type forward
+  port 24224
+</source>
+<match fluentd.test.**>
+  @type stdout
+</match>
+Please restart your agent once these lines are in place.
+
+# for rpm/deb only
+$ sudo /etc/init.d/td-agent restart
+Using fluent-logger-python
+
+First, install the fluent-logger library via pip.
+
+$ pip install fluent-logger
+Next, initialize and post the records as shown below.
+
+# test.py
+from fluent import sender
+from fluent import event
+sender.setup('fluentd.test', host='localhost', port=24224)
+event.Event('follow', {
+  'from': 'userA',
+  'to':   'userB'
+})
+Executing the script will send the logs to Fluentd.
+
+$ python test.py
+The logs should be output to /var/log/td-agent/td-agent.log or stdout of the Fluentd process via the stdout Output plugin.

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<title>DOCKER</title>
+
+<xmp theme="simplex" style="display:none;">
+# Data volumes
+
+A data volume is a specially-designated directory within one or more containers that bypasses the Union File System. 
+Data volumes provide several useful features for persistent or shared data:
+
+* Volumes are initialized when a container is created. If the container’s base image contains data at the specified 
+mount point, that existing data is copied into the new volume upon volume initialization. 
+(Note that this does not apply when mounting a host directory.)
+* Data volumes can be shared and reused among containers.
+* Changes to a data volume are made directly.
+* Changes to a data volume will not be included when you update an image.
+* Data volumes persist even if the container itself is deleted.
+
+**Data volumes are designed to persist data, independent of the container’s life cycle. Docker therefore never 
+automatically deletes volumes when you remove a container, nor will it “garbage collect” volumes that are 
+no longer referenced by a container.**
+
+
+
+Let’s do the latter approach that with a feature called “named volumes”. Create a named volume:
+
+```bash
+docker volume create --name esdata
+```
+
+You can mount that volume using the -v option:
+```bash
+docker run --rm -ti -p 9200:9200 -v esdata:/usr/share/elasticsearch/data my-es-image
+```
+Even if you restart your Elasticsearch container now it should preserve all data.
+
+*Note: This requires at least version 1.10 of Docker*
+Memory and heap size
+
+By default memory for a container is unbounded. If you want to limit for the max memory the container uses you can specify e.g. --memory="4g" with docker run. 
+You should also set the heap size for Elasticsearch. The normal recommendation with allocating half of the memory to the heap also applies. For example:
+
+```bash
+docker run --rm -ti -p 9200:9200 -v esdata:/usr/share/elasticsearch/data --memory="4g" -e ES_HEAP_SIZE=2g my-es-image
+```
+</xmp>
+
+<script src="http://strapdownjs.com/v/0.2/strapdown.js"></script>
+</html>
