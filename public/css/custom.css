@@ -1,0 +1,8 @@
+body {
+    background-image: url(bg/bg.jpg) no-repeat center center fixed;
+    background-size: cover;
+	height: 100%;
+	text-align: center;
+	text-shadow: 2px 2px 2px #000000;
+	/*transition: background 0.5s linear;*/
+}
