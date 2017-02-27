@@ -10,7 +10,7 @@
 } 
 */
 
- html { 
+ /*html { 
     background-image: url('../bg/bg.jpg');
     background-position: center center;
     background-repeat: no-repeat;
@@ -21,7 +21,14 @@
 
  .body {
      background-color: transparent; 
- }
+ }*/
+
+ .bg-img {
+    background-image:url('../bg/bg.jpg');
+    background-repeat:repeat-x;
+    background-size: 100%;
+}
+
 
  svg {
   background-color: #FFF;

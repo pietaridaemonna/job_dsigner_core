@@ -24,6 +24,7 @@ var bodyParser = require('body-parser');
 
 var index = require('./controllers/index');
 var dashboard = require('./controllers/admin/dashboard');
+var jobeditor = require('./controllers/ui/jobeditor');
 
 
 var app = express();
@@ -42,6 +43,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/dashboard', dashboard);
+app.use('/jobeditor', jobeditor);
 
 // DB HANDLING .................................................................
 

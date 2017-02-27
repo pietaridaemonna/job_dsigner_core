@@ -1,24 +1,42 @@
 extends layout
 
 block content
-  //- div.container
-  //-   div.jumbotron
-  script(src='js/job_editor.js')
-  p JOB dSIGNER
+  nav.navbar.navbar-inverse.navbar-fixed-top
+  div.container
+  div.bg-img
+    div.navbar-header
+      button.button.navbar-toggle(data-target="#bs-example-navbar-collapse-1")
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+          a.navbar-brand Start Bootstrap
+    div.collapse.navbar-collapse(id="bs-example-navbar-collapse-1")
+      ul.nav navbar-nav">
+        li
+          a(href="#") About
+        li
+          a(href="#") Services
+        li
+          a(href="#") Contact
 
-  //-     p Welcome to Job dSigner
-  //-     p
-  //-       span.small Built on
-  //-       a.small(href='https://github.com/pietaridaemonna/job_dsigner_core') 
-  //-         span.label.label-warning Job dSigner CORE.
-  //-     p
-  div.btn-group.btn-group-justified
-  div.btn-group
-    button.btn.btn-default Features
-  div.btn-group
-    button.btn.btn-default Docs
-  div.btn-group
-    button.btn.btn-default License
-    span.small Built on
-    a.small(href='https://github.com/pietaridaemonna/job_dsigner_core') 
-      span.label.label-warning Job dSigner CORE.
+
+
+
+
+
+  //- div.container
+  //-   div.btn-group.btn-group-justified
+  //-   div.btn-group
+  //-     button.btn.btn-disabled JOB dSIGNER
+  //-   div.btn-group
+  //-     button.btn.btn-default Features
+  //-   div.btn-group
+  //-     button.btn.btn-default Docs
+  //-   div.btn-group
+  //-     button.btn.btn-default License
+  //-   p
+  //-   p
+  //-     span.small Built on
+  //-     a.small(href='https://github.com/pietaridaemonna/job_dsigner_core') 
+  //-       span.label.label-warning Job dSigner CORE.
