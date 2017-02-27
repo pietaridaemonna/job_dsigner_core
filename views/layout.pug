@@ -9,5 +9,15 @@ html
     script(src='/js/jquery.min.js')
     script(src='/js/tether.min.js')
     script(src='/js/bootstrap.min.js')
-  body
-    block content
+body
+  nav.navbar.navbar-inverse.navbar-fixed-top
+    ul.nav.navbar-nav
+      li
+        a(href='/') Members
+      li
+        a(href='/users/register') Register
+      li
+        a(href='/users/login') Log In
+    ul.nav.navbar-nav.navbar-right
+      li
+        a(href='/users/logout') Logout
