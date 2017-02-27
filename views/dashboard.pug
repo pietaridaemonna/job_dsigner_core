@@ -1,5 +1,18 @@
 extends layout
 
 block content
-  h1= title
-  p Dashboard for #{title}
+  div.container
+    div.jumbotron
+      h1 Job dSigner ADMIN
+ 
+      p Welcome to my app, ready to get started?
+      p
+        a.btn.btn-primary(href="/login") Login now
+      p
+        span.small Don't have an account?
+        span &nbsp;
+        a.small(href="/register") Register now
+      p
+        span.small Built on
+        a.small(href='https://github.com/pietaridaemonna/job_dsigner_core') 
+          span.label.label-warning Job dSigner CORE.
