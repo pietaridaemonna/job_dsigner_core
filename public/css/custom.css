@@ -23,6 +23,36 @@
      background-color: transparent; 
  }*/
 
+ .link {
+  fill: none;
+  stroke: #666;
+  stroke-width: 1.5px;
+}
+
+#licensing {
+  fill: red;
+}
+
+.link.licensing {
+  stroke: red;
+}
+
+.link.resolved {
+  stroke-dasharray: 0,1 1;
+}
+
+circle {
+  fill: #ccc;
+  stroke: #333;
+  stroke-width: 1.5px;
+}
+
+text {
+  font: 10px sans-serif;
+  pointer-events: none;
+  text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+}
+
  .bg-img {
     background-image:url('../bg/bg.jpg');
     background-repeat:repeat-x;
@@ -47,9 +77,23 @@ svg:not(.active):not(.ctrl) {
 path.link {
   fill: none;
   stroke: #000;
-  stroke-width: 4px;
+  stroke-width: 1.5px;
   cursor: default;
 }
+
+.node rect {
+  cursor: pointer;
+  fill: #fff;
+  fill-opacity: .5;
+  stroke: #3182bd;
+  stroke-width: 1.5px;
+}
+
+.node text {
+  font: 10px sans-serif;
+  pointer-events: none;
+}
+
 
 svg:not(.active):not(.ctrl) path.link {
   cursor: pointer;
