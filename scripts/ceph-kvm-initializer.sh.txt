@@ -1,0 +1,95 @@
+#!/bin/bash
+# (c) James Beedy 2015
+#
+# A few helper functions to ease initializing kvm cluster for ceph
+
+#######################################
+# Initialize basic kvm ceph cluster
+# Globals:
+#   None
+# Arguments:
+#   None
+# Returns:
+#   None
+#######################################
+ceph_basic_init() {
+
+  num_osd=2
+  num_mon=1
+
+  # ceph-basic-admin
+  virt-install --connect qemu:///system -n ceph-basic-admin -r 1024 \
+    --arch=x86_64 --pxe \
+    --vnc --accelerate \
+    --network network:natnet0,mac=AA:AA:AA:AA:A4:00 \
+    --network network:natnet1,mac=AA:AA:AA:AA:A4:01 \
+    --disk ~/mnt/ceph-basic-admin-disk0,size=20 \
+
+  # ceph-basic-client
+  virt-install --connect qemu:///system -n ceph-basic-client -r 1024 \
+    --arch=x86_64 --pxe \
+    --vnc --accelerate \
+    --network network:natnet0,mac=AA:AA:AA:AA:A4:02 \
+    --network network:natnet1,mac=AA:AA:AA:AA:A4:03 \
+    --disk ~/mnt/ceph-basic-client-disk0,size=20 \
+
+  # ceph-basic-mon0
+  virt-install --connect qemu:///system -n ceph-basic-mon0 -r 2048 \
+    --arch=x86_64 --pxe \
+    --vnc --accelerate \
+    --network network:natnet0,mac=AA:AA:AA:AA:A4:04 \
+    --network network:natnet1,mac=AA:AA:AA:AA:A4:05 \
+    --disk ~/mnt/ceph-basic-mon0-disk0,size=20
+
+  # ceph-basic-osd{0,1}
+  #for osd in $(seq 1 ${num_osd})]; do
+  virt-install --connect qemu:///system -n ceph-basic-osd0 -r 2048 \
+    --arch=x86_64 --pxe \
+    --vnc --accelerate \
+    --network network:natnet0,mac=AA:AA:AA:AA:A4:07 \
+    --network network:natnet1,mac=AA:AA:AA:AA:A4:08 \
+    --disk ~/mnt/ceph-basic-osd0-disk0,size=20 \
+    --disk ~/mnt/ceph-basic-osd0-disk1,size=50 \
+    --disk ~/mnt/ceph-basic-osd0-disk2,size=50
+
+  virt-install --connect qemu:///system -n ceph-basic-osd1 -r 2048 \
+    --arch=x86_64 --pxe \
+    --vnc --accelerate \
+    --network network:natnet0,mac=AA:AA:AA:AA:A4:09 \
+    --network network:natnet1,mac=AA:AA:AA:AA:A4:10 \
+    --disk ~/mnt/ceph-basic-osd1-disk0,size=20 \
+    --disk ~/mnt/ceph-basic-osd1-disk1,size=50 \
+    --disk ~/mnt/ceph-basic-osd1-disk2,size=50
+
+  #done
+
+
+}
+
+destroy_cluster(){
+
+  virsh destroy ceph-basic-admin
+  virsh destroy ceph-basic-client
+  virsh destroy ceph-basic-mon0
+  virsh destroy ceph-basic-osd0
+  virsh destroy ceph-basic-osd1
+  virsh undefine ceph-basic-admin
+  virsh undefine ceph-basic-client
+  virsh undefine ceph-basic-mon0
+  virsh undefine ceph-basic-osd0
+  virsh undefine ceph-basic-osd1
+}
+#######################################
+# Main function
+# Globals:
+#   None
+# Arguments:
+#   None
+# Returns:
+#   None
+#######################################
+main() {
+  ceph_basic_init
+}
+
+#main "$@"

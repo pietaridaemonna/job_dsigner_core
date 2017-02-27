@@ -1,0 +1,200 @@
+#!/bin/bash
+
+QEMU_IMG=/usr/bin/qemu-img
+VIRT_INST=/usr/bin/virt-install
+NAME=$1
+# Change ISO and INST_PATH variable
+ISO="debian-6.0.7-amd64-CD-1.iso"
+ISODIR="/var/lib/libvirt/images"
+INST_PATH="/var/lib/libvirt/images/vms"
+
+
+# DONT CHANGE BELOW 
+if [[ ${EUID} != 0 ]]; then
+  printf "${USER}. You must be root\n"
+  exit 1  
+fi
+
+
+get_isos()
+{
+files=(); while IFS= read -rd '' f; do files+=("$f"); done < <(find "$ISODIR" -name '*.iso' -print0)
+echo -ne "There are ${#files[@]} installation media found"
+echo
+for index in "${!files[@]}"; do printf '[%s] %s\n' "$((index + 1))" "${files[index]}"; done
+
+echo -ne "Which iso would you like to use? :\t "
+echo -ne "To be implemented...."
+echo
+}
+
+def_deployment(){
+DEFNAME=customername
+STORAGESIZE=30
+DISKNAME=vdisk
+RAM=2048
+CORES=2
+ETH0=virbr0
+echo "The default settings are"
+echo "#########################################"
+echo
+echo -en "Client name:\t\t $DEFNAME\n"
+echo -en "Storage GB:\t\t $STORAGESIZE\n"
+echo -en "CPU cores:\t\t $CORES\n"
+echo
+echo "#########################################"
+echo -n "Would you like to use these settings [y/n]? "
+read YesOrNo
+YN=$YesOrNo
+if [[ "$YN" = "y" ]] && [[ ! -d $INST_PATH/$DEFNAME ]]; then
+   mkdir -p $INST_PATH/$DEFNAME/
+   echo "Client directory is being created... $INST_PATH/$NAME "
+   sleep 2
+   echo "Creating image of cqow2 format"
+   sleep 2
+   $QEMU_IMG create -f qcow2 $INST_PATH/$DEFNAME/$DISKNAME.qcow2 $STORAGESIZE"G"
+   wait
+   virt-install --connect=qemu:///system \
+   --name=$DEFNAME  \
+   --ram=$RAM \
+   --vcpus=$VCPUS \
+   --arch=x86_64 \
+   --os-type=linux \
+   --hvm \
+   --virt-type kvm \
+   --cdrom=$ISODIR/$ISO \
+   --disk path=$INST_PATH/$DEFNAME/$DISKNAME.cqow2,size=$STORAGESIZE,bus=virtio \
+   --network=bridge:$ETH0,model=virtio --vnc
+fi     
+}
+
+manual_deployment()
+{
+get_isos
+echo
+echo -ne "Client name:\t"
+read clientname
+CNAME=$clientname
+if [[ -e $INST_PATH/$CNAME ]]; then
+echo -ne "Client $NAME exists\n"
+exit 1
+fi
+echo -ne "Node name:\t"
+read nodename
+NN=$nodename
+echo -ne "Virtual CPU's:\t"
+read virtualcpus
+VCPUS=$virtualcpus
+echo $VCPUS | grep "[^0-9]" > /dev/null 2>&1
+if [[ "$?" -eq "0" ]]; then
+   echo "Numbers Only"
+   echo
+   exit 1
+fi
+echo -ne "Virtual RAM in MB:\t"
+read virtualram
+VRAM=$virtualram
+echo $VCPUS | grep "[^0-9]" > /dev/null 2>&1
+if [[ "$?" -eq "0" ]]; then
+       echo "Numbers Only"
+       echo
+       exit 1
+fi
+echo -ne "Virtual Disk space in GB:\t"
+read virtualdisk
+VDISK=$virtualdisk
+echo $VCPUS | grep "[^0-9]" > /dev/null 2>&1
+if [[ "$?" -eq "0" ]]; then
+       echo "Numbers Only"
+       echo
+       exit 1
+fi
+one_br_deployment()
+{
+if [[ ! -d $INST_PATH/$CNAME ]]; then
+   mkdir -p $INST_PATH/$CNAME
+   echo "Client directory is being created... $INST_PATH/$CNAME "
+   sleep 2
+   echo "Creating image of cqow2 format"
+   sleep 2
+   $QEMU_IMG create -f qcow2 $INST_PATH/$CNAME/$NN.qcow2 $VDISK"G"
+   sleep 5
+   virt-install --connect=qemu:///system \
+   --name=$NN \
+   --ram=$VRAM \
+   --vcpus=$VCPUS \
+   --arch=x86_64 \
+   --os-type=linux \
+   --hvm \
+   --virt-type kvm \
+   --cdrom=$ISODIR/$ISO \
+   --network=bridge:$brname,model=virtio \
+   --disk path=$INST_PATH/$CNAME/$NN.cqow2,size=$VDISK,bus=virtio \
+   --vnc
+fi
+}
+two_br_deployment()
+{
+if [[ ! -d $INST_PATH/$CNAME ]]; then
+   mkdir -p $INST_PATH/$CNAME
+   echo "Client directory is being created... $INST_PATH/$CNAME "
+   sleep 2
+   echo "Creating image of cqow2 format"
+   sleep 2
+   $QEMU_IMG create -f qcow2 $INST_PATH/$CNAME/$NN.qcow2 $VDISK"G"
+   sleep 5
+   virt-install --connect=qemu:///system \
+   --name=$NN \
+   --ram=$VRAM \
+   --vcpus=$VCPUS \
+   --arch=x86_64 \
+   --os-type=linux \
+   --hvm \
+   --virt-type kvm \
+   --cdrom=$ISODIR/$ISO \
+   --network=bridge:$br1name,model=virtio --network=bridge:$br2name,model=virtio \
+   --disk path=$INST_PATH/$CNAME/$NN.cqow2,size=$VDISK,bus=virtio \
+   --vnc
+fi
+}
+availbridges=$(ifconfig | awk '/br/ {printf("[ %s%s ]", NR==1?"":" ", $1)} END {print ""}')
+
+echo -ne "How many bridges to add:\t"
+read bridge
+BR=$bridge
+echo $BR | grep "[^0-9]" > /dev/null 2>&1
+if [[ $BR == "1" ]]; then
+echo -ne "Available bridges are:\t $availbridges"
+echo
+echo -ne "Enter Bridge name:\t "
+read brname
+ if [[ ! -z $brname ]]; then
+        one_br_deployment
+ fi
+elif [[ $BR == "2" ]]; then
+echo -ne "Available bridges are:\t $availbridges"
+echo
+echo -ne "Enter first bridg name:\t "
+read br1name
+echo -ne "Enter second bridge name:\t "
+read br2name
+ if [[ ! -z $br1name ]] && [[ ! -z $br2name ]]; then
+        two_br_deployment
+ fi
+elif [[ "$?" -eq "0" ]]; then
+        echo "Numbers and Letters only"
+        echo
+        exit 1
+fi
+}
+ 
+# DONT CHANGE DOWN HERE
+if [[ $# -lt 1 ]]; then
+   echo "Usage: ./`basename $0` [default | manual]"
+   exit 1
+fi
+if [[ $1 = "default" ]]; then
+def_deployment
+elif [[ $1 = "manual" ]]; then
+manual_deployment
+fi

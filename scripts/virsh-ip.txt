@@ -1,0 +1,11 @@
+#!/bin/sh
+# Get the ip address of a running Virsh domain
+# Copyright (c) 2015 Andrea Bonomi <andrea.bonomi@gmail.com> - MIT License
+# https://github.com/andreax79/virsh-ip
+if [ $# -eq 0 ]; then
+  echo "usage: $0 <domain>"
+  exit 2
+fi
+for i in $(virsh dumpxml $1 | grep "mac address=" | cut -d "'" -f 2); do
+    ip neigh | grep $i | cut -d " " -f 1
+done
