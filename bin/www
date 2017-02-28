@@ -54,7 +54,7 @@ var ciphers = [
 // Setup some https server options
 var sslOptions = {
   key: fs.readFileSync('SSL_store/example_key.pem'),
-  certificate: fs.readFileSync('SSL_store/example_cert.pem'),
+  cert: fs.readFileSync('SSL_store/example_cert.pem'),
   passphrase: 'Jebacina666',
   ciphers: ciphers,
   secureProtocol: 'TLSv1_2_method'
