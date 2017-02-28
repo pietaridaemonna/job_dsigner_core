@@ -23,6 +23,12 @@ job runner, continuous integration
 - Time-line execution database
 - Encryption
 
+# DOCS
+
+docs can be found in DOCS\JOB_dSIGNER.
+
+***All docs are MARKDOWN embedded in HTML, so just open them in browser!***
+
 ```bash
 # The MIT License (MIT)
 # Copyright © 2017 Peter Ducai, http:#daemonna.com <peter.ducai@gmail.com>
