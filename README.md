@@ -1,6 +1,14 @@
 # job_dsigner core
 job runner, continuous integration
 
+## Main features
+
+- Run CLI (Powershell, Bash..)
+- Run remote CLI (SSH)
+- Run code (Javascript, Python, C#, Java, Go-lang..)
+- Aliases.. wrap long commands in simple alias
+- Auth (Basic, LDAP)
+
 ```bash
 # The MIT License (MIT)
 # Copyright © 2017 Peter Ducai, http:#daemonna.com <peter.ducai@gmail.com>
