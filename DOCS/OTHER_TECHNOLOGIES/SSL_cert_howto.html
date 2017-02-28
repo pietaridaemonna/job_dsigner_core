@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<title>SSL</title>
+
+<xmp theme="journal" style="display:none;">
+# How to generate certificate
+
+```bash
+openssl genrsa -out key.pem
+openssl req -new -key key.pem -out csr.pem
+openssl x509 -req -days 9999 -in csr.pem -signkey key.pem -out cert.pem
+rm csr.pem
+```
+
+You will get a cert.pem (the certificate) and key.pem (the private key). This is all you need for a SSL connection.
+
+**In the second command, when prompted for “Common Name (eg, YOUR name) []:”, do not give your name.** It is actually the domain name field, so enter your domain name. Not giving your domain name will result in “domain mismatch” errors.
+
+This certificate will trigger warnings in your browser, since it is self-signed.
+</xmp>
+
+<script src="http://strapdownjs.com/v/0.2/strapdown.js"></script>
+</html>

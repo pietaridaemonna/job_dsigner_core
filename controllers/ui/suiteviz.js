@@ -20,7 +20,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('jobeditor');
+  res.render('suite_');
 });
 
 module.exports = router;

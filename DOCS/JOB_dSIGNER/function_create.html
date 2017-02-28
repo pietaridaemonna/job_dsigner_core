@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
-<title>EXTRAS</title>
+<title>Extending</title>
 
-<xmp theme="simplex" style="display:none;">
+<xmp theme="journal" style="display:none;">
 # Create new Router/FUNCTION
 
 Create YOURFUNCTION.js somewhere in /controllers folder. It should look like:
@@ -16,7 +16,7 @@ var router = express.Router();
 router.get('/:hostname/:username/:password/:command', function (req, res, next) {
     //get values sent by user
     var username = req.params.username;
-    var password = req.params.password;
+    var password = req.params.password; 
     //...
     //and DO SOMETHING!..
 });
