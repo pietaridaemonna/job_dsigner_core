@@ -6,8 +6,22 @@ job runner, continuous integration
 - Run CLI (Powershell, Bash..)
 - Run remote CLI (SSH)
 - Run code (Javascript, Python, C#, Java, Go-lang..)
-- Aliases.. wrap long commands in simple alias
+- Aliases to transform any long string/sentence into single variable/string
+- Command aliases.. 
+  which can be transformed in well formed commandline set like
+  ***POSIX*** like options (ie. tar -zxvf foo.tar.gz), 
+  ***GNU*** like long options (ie. du --human -readable --max-depth=1), 
+  ***SHELL*** options ($property=value), 
+  ***JAVA*** like properties (ie. java -Djava.awt.headless=true - Djava.net.useSystemProxies=true Foo), 
+  ***Robot-Framework*** properties (--variable DB_HOST:dbservername --variable DATABASE_SID:some_SID) 
+  ***Database*** url strings (jdbc:oracle://127.0.0.1:8080)
 - Auth (Basic, LDAP)
+- Run, schedule jobs.. JOB is also TEST_SUITE!
+- Chain jobs and create complex architectures
+- Execute SQL thru several connectors (PG,MYSQL,ORACLE,MSSQL)
+- Reporting
+- Time-line execution database
+- Encryption
 
 ```bash
 # The MIT License (MIT)
