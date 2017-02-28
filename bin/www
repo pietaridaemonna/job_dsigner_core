@@ -7,6 +7,8 @@
 var app = require('../app');
 var debug = require('debug')('job-dsigner:server');
 var http = require('http');
+var https = require('https');
+var fs = require('fs');
 
 /**
  * Get port from environment and store in Express.
@@ -19,7 +21,15 @@ app.set('port', port);
  * Create HTTP server.
  */
 
+// Setup some https server options
+var sslOptions = {
+  key: fs.readFileSync('SSL_store/example_key.pem'),
+  certificate: fs.readFileSync('SSL_store/example_cert.pem'),
+  passphrase: 'Jebacina666'
+};
+
 var server = http.createServer(app);
+var sslserver = https.createServer(sslOptions, app);
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -28,6 +38,10 @@ var server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+
+sslserver.listen(8443);
+sslserver.on('error', onError);
+sslserver.on('listening', onListening);
 
 /**
  * Normalize a port into a number, string, or false.
