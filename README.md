@@ -15,6 +15,7 @@ job runner, continuous integration
  - - ***JAVA*** like properties (ie. java -Djava.awt.headless=true - Djava.net.useSystemProxies=true Foo), 
  - - ***Robot-Framework*** properties (--variable DB_HOST:dbservername --variable DATABASE_SID:some_SID) 
  - - ***Database*** url strings (jdbc:oracle://127.0.0.1:8080 OR jdbc:mysql://localhost:3306/sakila?profileSQL=true)
+- Install scripts (Hyper-v, Jenkins, tools... etc)
 - Auth (Basic, LDAP)
 - Run, schedule jobs.. JOB is also TEST_SUITE!
 - Chain jobs and create complex architectures
