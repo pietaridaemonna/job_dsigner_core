@@ -40,6 +40,8 @@ and now when you call http://localhost/yourfunction/ it should be executed
 
 # More complex example
 
+You can take a look at more complex example which use callbacks/pipes and outputs STD_OUT on webpage
+
 ```javascript
 'use strict'
 var Connection = require('ssh2');
@@ -79,7 +81,7 @@ router.get('/:hostname/:username/:password/:command', function (req, res, next) 
             stream.on('exit', function (code, signal) {
                 //console.log('Stream :: exit :: code: ' + code + ', signal: ' + signal);
             }).on('close', function () {
-                //console.log('Stream :: close');
+                //ON CLOSE we have data which we can render to webpage
                 conn.end();
                 res.render('ssh2', { stdout: stdout, stderr: stderr });
             }).on('data', function (data_out) {

@@ -102,7 +102,7 @@ router.get('/RAW/:hostname/:username/:password/:command', function (req, res, ne
             }).on('close', function () {
                 //console.log('Stream :: close');
                 conn.end();
-                res.writeHead(200, {'Content-Type': 'text/plaintext'});
+                res.writeHead(200, {'Content-Type': 'text/plaintext'});  //RENDER TO PLAINTEXT
                 res.write( stdout, stderr);
                 res.end();
             }).on('data', function (data_out) {

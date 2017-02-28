@@ -9,12 +9,12 @@ job runner, continuous integration
 - Aliases to transform any long string/sentence into single variable/string
 - Command aliases.. 
   which can be transformed in well formed commandline set like
-  ***POSIX*** like options (ie. tar -zxvf foo.tar.gz), 
-  ***GNU*** like long options (ie. du --human -readable --max-depth=1), 
-  ***SHELL*** options ($property=value), 
-  ***JAVA*** like properties (ie. java -Djava.awt.headless=true - Djava.net.useSystemProxies=true Foo), 
-  ***Robot-Framework*** properties (--variable DB_HOST:dbservername --variable DATABASE_SID:some_SID) 
-  ***Database*** url strings (jdbc:oracle://127.0.0.1:8080)
+ - - ***POSIX*** like options (ie. tar -zxvf foo.tar.gz), 
+ - - ***GNU*** like long options (ie. du --human -readable --max-depth=1), 
+ - - ***SHELL*** options ($property=value), 
+ - - ***JAVA*** like properties (ie. java -Djava.awt.headless=true - Djava.net.useSystemProxies=true Foo), 
+ - - ***Robot-Framework*** properties (--variable DB_HOST:dbservername --variable DATABASE_SID:some_SID) 
+ - - ***Database*** url strings (jdbc:oracle://127.0.0.1:8080 OR jdbc:mysql://localhost:3306/sakila?profileSQL=true)
 - Auth (Basic, LDAP)
 - Run, schedule jobs.. JOB is also TEST_SUITE!
 - Chain jobs and create complex architectures
