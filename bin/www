@@ -21,11 +21,43 @@ app.set('port', port);
  * Create HTTP server.
  */
 
+var ciphers = [
+  'TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384',
+  'TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256',
+  'TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384',
+  'TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA',
+  'TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256',
+  'TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA',
+  'TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384',
+  'TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256',
+  'TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384',
+  'TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256',
+  'TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA',
+  'ECDHE-RSA-AES256-SHA384',
+  'DHE-RSA-AES256-SHA384',
+  'ECDHE-RSA-AES256-SHA256',
+  'DHE-RSA-AES256-SHA256',
+  'ECDHE-RSA-AES128-SHA256',
+  'DHE-RSA-AES128-SHA256',
+  'HIGH',
+  '!aNULL',
+  '!eNULL',
+  '!EXPORT',
+  '!DES',
+  '!RC4',
+  '!MD5',
+  '!PSK',
+  '!SRP',
+  '!CAMELLIA'
+].join(':');
+
 // Setup some https server options
 var sslOptions = {
   key: fs.readFileSync('SSL_store/example_key.pem'),
   certificate: fs.readFileSync('SSL_store/example_cert.pem'),
-  passphrase: 'Jebacina666'
+  passphrase: 'Jebacina666',
+  ciphers: ciphers,
+  secureProtocol: 'TLSv1_2_method'
 };
 
 var server = http.createServer(app);
@@ -72,9 +104,9 @@ function onError(error) {
     throw error;
   }
 
-  var bind = typeof port === 'string'
-    ? 'Pipe ' + port
-    : 'Port ' + port;
+  var bind = typeof port === 'string' ?
+    'Pipe ' + port :
+    'Port ' + port;
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
@@ -97,8 +129,8 @@ function onError(error) {
 
 function onListening() {
   var addr = server.address();
-  var bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
+  var bind = typeof addr === 'string' ?
+    'pipe ' + addr :
+    'port ' + addr.port;
   debug('Listening on ' + bind);
 }
