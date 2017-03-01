@@ -9,9 +9,14 @@
 
 Set PROXY if you going through none
 
+```bash
 export HTTP_PROXY=http://yourproxy.com:8080
 export HTTPS_PROXY=http://yourproxy.com:8080
-
+```
+and
+```bash
+echo "proxy=http://yourproxy:8080" >> /etc/yum.conf
+```
 ### CentOS 7.3 (1611)
 
 FIRST REMOVE OLD DOCKER
@@ -28,9 +33,7 @@ sudo yum install -y yum-utils
 
 Use the following command to set up the stable repository:
 ```bash
-sudo yum-config-manager \
-    --add-repo \
-    https://docs.docker.com/engine/installation/linux/repo_files/centos/docker.repo
+sudo yum-config-manager --add-repo https://docs.docker.com/engine/installation/linux/repo_files/centos/docker.repo
 ```
 
 Update the yum package index.
@@ -50,9 +53,19 @@ sudo yum -y install docker-engine-<VERSION_STRING>
 yum list docker-engine.x86_64  --showduplicates |sort -r
 ```
 
+```bash
+echo "HTTP_PROXY=\"http://proxy:8080\"" > /etc/sysconfig/docker
+echo "HTTPS_PROXY=\"http://proxy:8080\"" >> /etc/sysconfig/docker
+echo "http_proxy=\"${HTTP_PROXY}\"" >> /etc/sysconfig/docker
+echo "https_proxy=\"${HTTPS_PROXY}\"" >> /etc/sysconfig/docker
+
+sudo systemctl daemon-reload
+```
+
 Start Docker.
 ```bash
 sudo systemctl start docker
+sudo docker pull centos
 ```
 </xmp>
 
