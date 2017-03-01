@@ -22,9 +22,15 @@ var Schema = mongoose.Schema;
 // create a schema
 var domainSchema = new Schema({
   name: String,
+  organization: String,
+  dns_name: String,
   admin: { type: String, required: true },
   description: String,
-  location: Point, //GPS coordinates
+  location: {
+    gps_loc: Point,
+    city: String,
+    country: String
+  },
   meta: {
     max_pools: Number,
     max_users: String

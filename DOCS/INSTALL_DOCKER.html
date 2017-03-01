@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<title>INSTALL DOCKER</title>
+
+<xmp theme="journal" style="display:none;">
+# Commandments of programmer
+
+## Generic
+
+Set PROXY if you going through none
+
+export HTTP_PROXY=http://yourproxy.com:8080
+export HTTPS_PROXY=http://yourproxy.com:8080
+
+### CentOS 7.3 (1611)
+
+FIRST REMOVE OLD DOCKER
+```bash
+sudo yum -y remove docker docker-common container-selinux
+sudo yum -y remove docker-selinux
+```
+
+Install yum-utils, which provides the yum-config-manager utility:
+
+```bash
+sudo yum install -y yum-utils
+```
+
+Use the following command to set up the stable repository:
+```bash
+sudo yum-config-manager \
+    --add-repo \
+    https://docs.docker.com/engine/installation/linux/repo_files/centos/docker.repo
+```
+
+Update the yum package index.
+sudo yum makecache fast
+
+
+Install the latest version of Docker, or go to the next step to install a specific version.
+```bash
+sudo yum -y install docker-engine
+```
+
+On production systems, you should install a specific version of Docker instead of always using the latest. 
+List the available versions. 
+This example uses the sort -r command to sort the results by version number, highest to lowest, and is truncated.
+```bash
+sudo yum -y install docker-engine-<VERSION_STRING>
+yum list docker-engine.x86_64  --showduplicates |sort -r
+```
+
+Start Docker.
+```bash
+sudo systemctl start docker
+```
+</xmp>
+
+<script src="http://strapdownjs.com/v/0.2/strapdown.js"></script>
+</html>

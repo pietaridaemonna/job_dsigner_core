@@ -31,7 +31,7 @@ JobController.methods.add_job = function (job_number) {
         console.log('remove_job ' + job_number);
 }
 
-JobController.methods.change_status_of_job = function (job_number) {
+JobController.methods.change_status_of_job = function (job_number) { 
     this.ConnectorsOUT.push(_Id),
         console.log('remove_job ' + job_number);
 }
