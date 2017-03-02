@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<title>MONGODB</title>
+
+<xmp theme="journal" style="display:none;">
+Install the project by typing “npm install” in terminal or command prompt. It will install all dependencies and make your project ready to work.
+
+# NPM INSTALL
+
+SQLite is transaction database engine, it means you can run DDL and DML queries of SQL. DDL queries deal with creation of database, tables, view etc where as DML queries are responsible for CRUD operation (insert,delete,update) etc. Here is a code to create SQLite database and performing SQL operations.
+
+```bash
+vi /etc/mongod.conf
+```
+and change bindIp to your IP for external listening
+
+```bash
+netstat -a |grep 27017
+
+firewall-cmd --get-active-zone
+firewall-cmd --get-zones
+firewall-cmd --zone=external --change-interface=eth0
+firewall-cmd --zone=home --list-services
+firewall-cmd --zone=external --add-port=27017/tcp
+service mongod restart
+netstat -a |grep 27017
+
+
+```
+</xmp>
+
+<script src="http://strapdownjs.com/v/0.2/strapdown.js"></script>
+</html>
