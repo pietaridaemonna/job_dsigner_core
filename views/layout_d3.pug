@@ -10,5 +10,13 @@ html
     script(src='/js/tether.min.js')
     script(src='/js/bootstrap.min.js')
     script(src='/js/d3.v3.min.js')
-  body
+body
+  nav.navbar.navbar-inverse.navbar-fixed-top
+    .container
+      .navbar-header
+        button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='true', aria-controls='navbar')
+          span.icon-bar Admin
+          span.icon-bar
+          span.icon-bar
+        a.navbar-brand(href='#') Job dSIGNER
     block content

@@ -1,7 +1,13 @@
-extends layout_d3
+extends layout_d4
 
 block content
-  p Sure why not
-  script(type='text/javascript').
-    var suite_viz_json = !{suitelist};
-  script(src='/js_core/suite_visualization.js')
+  .container
+    .jumbotron
+      h1 SuiteViz
+      p showing suite "Ping"
+  .container
+    .suiteviz
+    | sbg
+
+       
+    

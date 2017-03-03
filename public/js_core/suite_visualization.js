@@ -21,7 +21,7 @@ var force = d3.layout.force()
     .on("tick", tick)
     .start();
 
-var svg = d3.select("body").append("svg")
+var svg = d3.select("#vizcanvas").append("svg")
     .attr("width", width)
     .attr("height", height);
 

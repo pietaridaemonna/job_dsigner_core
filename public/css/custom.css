@@ -23,10 +23,20 @@
      background-color: transparent; 
  }*/
 
+ body {
+  min-height: 2000px;
+  padding-top: 70px;
+}
+
  .link {
   fill: none;
   stroke: #666;
   stroke-width: 1.5px;
+}
+
+#suiteviz {
+  min-width: 444;
+  min-height: 444;
 }
 
 #licensing {
