@@ -19,9 +19,9 @@ var express = require('express');
 var router = express.Router();
 
 
-
 /* GET home page. */
 router.get('/', function(req, res, next) {
+  var suite_id = 0;
   var suite_viz_json = [
   {source: "Win 10", target: "CISCO", type: "licensing"},
   {source: "HP_Blade", target: "CISCO", type: "resolved"},
@@ -32,7 +32,7 @@ router.get('/', function(req, res, next) {
   {source: "RedHat 7.3", target: "SGI", type: "suit"},
   {source: suite_id, target: "CISCO", type: "suit"}
   ];
-  res.render('suiteviz', {suitelist: JSON.stringify(suite_viz_json)});
+  res.render('suiteviz', {suitelist: JSON.stringify(suite_viz_json),suite_id: suite_id});
 });
 
 router.get('/:suite_id', function(req, res, next) {
