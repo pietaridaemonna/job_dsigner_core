@@ -29,7 +29,8 @@ var domainSchema = new Schema({
   location: {
     gps_loc: Point,
     city: String,
-    country: String
+    country: String,
+    
   },
   meta: {
     max_pools: Number,
