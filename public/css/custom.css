@@ -34,11 +34,6 @@
   stroke-width: 1.5px;
 }
 
-#suiteviz {
-  min-width: 444;
-  min-height: 444;
-}
-
 #licensing {
   fill: red;
 }

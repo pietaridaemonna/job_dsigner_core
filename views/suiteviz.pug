@@ -6,8 +6,10 @@ block content
       h1 SuiteViz
       p showing suite "Ping"
   .container
-    .suiteviz
-    | sbg
+    #vizcanvas
+    | generated on #{utc}
+
+  script(src='/js_core/suite_visualization.js')
 
        
     
