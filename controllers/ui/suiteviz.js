@@ -28,11 +28,26 @@ router.get('/', function(req, res, next) {
   {source: "H3C", target: "SGI", type: "suit"},
   {source: "Asterisk", target: "SGI", type: "suit"},
   {source: "SGI", target: "RedHat 7.3", type: "resolved"},
-  {source: "RedHat 7.3", target: "HPE", type: "suit"},
+  {source: "RedHat 7.3", target: suite_id, type: "suit"},
   {source: "RedHat 7.3", target: "SGI", type: "suit"},
-  {source: "HPE", target: "CISCO", type: "suit"}
+  {source: suite_id, target: "CISCO", type: "suit"}
   ];
   res.render('suiteviz', {suitelist: JSON.stringify(suite_viz_json)});
+});
+
+router.get('/:suite_id', function(req, res, next) {
+  var suite_id = req.params.suite_id;
+  var suite_viz_json = [
+  {source: "Win 10", target: "CISCO", type: "licensing"},
+  {source: "HP_Blade", target: "CISCO", type: "resolved"},
+  {source: "H3C", target: "SGI", type: "suit"},
+  {source: "Asterisk", target: "SGI", type: "suit"},
+  {source: "SGI", target: "RedHat 7.3", type: "resolved"},
+  {source: "RedHat 7.3", target: suite_id, type: "suit"},
+  {source: "RedHat 7.3", target: "SGI", type: "suit"},
+  {source: suite_id, target: "CISCO", type: "suit"}
+  ];
+  res.render('suiteviz', {suitelist: JSON.stringify(suite_viz_json),suite_id: suite_id});
 });
 
 module.exports = router;

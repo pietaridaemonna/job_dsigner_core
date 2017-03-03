@@ -3,11 +3,11 @@ extends layout_d4
 block content
   .container
     .jumbotron
-      h1 SuiteViz
+      h1 Suite id: !{suite_id}
       p showing suite "Ping"
   .container
     #vizcanvas
-    | generated on #{utc}
+    | generated on 
 
   script(src='/js_core/suite_visualization.js')
 
