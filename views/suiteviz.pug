@@ -1,4 +1,7 @@
 extends layout_d3
 
 block content
-  script(src='/js_core/suite_vizualization.js')
+  p Sure why not
+  script(type='text/javascript').
+    var suite_viz_json = !{suitelist};
+  script(src='/js_core/suite_visualization.js')
