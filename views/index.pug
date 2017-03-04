@@ -1,13 +1,20 @@
 extends layout
 
 block content
-    .container
+block content
+  .container
+    .jumbotron
         h1 Welcome page
         p.lead
-            | test each of the&nbsp;
-                
-        p
-        span.small Built on
+            | welcome to..
+  .container
+    #bg
+  .container
+    span.small Built on
         a.small(href='https://github.com/pietaridaemonna/job_dsigner_core') 
           span.label.label-warning Job dSigner CORE.
 
+
+  script(src='/js/d3.v3.min.js')
+  script(src='/js/d3.geo.js')
+  script(src='/js_core/bg.js')
