@@ -1,0 +1,392 @@
+VARIABLES
+
+var a = "b";simple assignment
+
+var b = a;b == "b", simple reference
+
+var b = null;literal null/empty value
+
+var b = undefined;literal undefined
+
+var a, b = 2, c, d = 3;variable list
+
+var a = "value",String
+
+    b = 10,Number
+
+    c = true,Boolean
+
+    d = 1.23,Number
+
+    e = {},Object
+
+    f = [],Array
+
+    g = /[\w+]/i;RegExp
+
+var a = 2, b = a + 2;b == 4, var reference in var list
+
+var a, b, c;
+a = b = c = "same";multiple assignments
+
+var d = true; d = !d;d == false
+
+var c = d || "d was undefined";the latter will be used if d is FALSY
+
+var a = 4;Values for a:
+
+a *= 2;a == 8
+
+a += 10;a == 18
+
+a -= 8;a == 10
+
+a /= 2;a == 5
+
+TRUTHINESS
+
+if(null){ ... }false
+
+if(undefined){ ... }false
+
+if(!null){ ... }true
+
+if(0){ ... }false
+
+var bool = !!null;false
+
+if(true || false){ ... }true, logical 'or'
+
+if(true && false){ ... }false, logical 'and'
+
+if(false && true && isTrue()){ ... }returns false before isTrue() from first failure
+
+if(true && isTrue()){ ... }execute isTrue, evaluates returned value
+
+<, >, <=, >=Inequality checks
+
+==, !=Type-coercing equality checks
+
+===, !==Strict equality checks
+
+if("a" != "b"){ ... }true
+
+if("a" == "b"){ ... }false
+
+if("a" === "b"){ ... }false
+
+if("a" !== "b"){ ... }true
+
+if("1" == 1){ ... }true, will coerce types
+
+if("1" === 1){ ... }false, will not coerce types
+
+if( isNaN(10) ){ }false
+
+if( isNaN("ten") ){ }true
+
+if( !isNaN(10) ){ }true
+
+if( NaN )false, NaN is equal to nothing
+
+if("something" in {})false
+
+if("a" in { a:"b" })true
+
+STRINGS
+
+var str = "foo";Values of str:
+
+str += "bar";foobar
+
+str = str + "Baz";foobarBaz
+
+str.charAt(1) == "o"get a character at an index
+
+str = str.toUpperCase();"FOOBARBAZ"
+
+str = str.toLowerCase();"foobarbaz"
+
+var size = "123456789";
+
+size.length == 9 size[size.length - 1] == "9"
+
+size.indexOf("3") == 2zero-based, -1 for no match
+
+var m = str.match(/foo/);m == "foo"
+
+str = str.replace(/bar/,"baz");replace first match with a string foobazbaz
+
+var other = str.replace(/baz/g,replace each match from a function
+
+function(matched){
+
+   return "a" + matched + "c"other == "fooabazcabazc"
+
+});
+
+var aList = "one,two,three";
+
+aList.split(",");["one","two","three"]
+
+var squoted = 'Embedded with "double" quotes';
+
+var dquoted = "Embedded with 'single' quotes";
+
+var escaped = 'Escaped with \'single\' quotes';
+
+var same = "Escaped with \"double\" quotes";
+
+MDN Reference
+ERROR HANDLING
+
+var errorMaker = function(txt){throw an exception:
+
+   throw new Error(txt);
+
+}
+
+
+try{When code
+
+   errorMaker("BOOM");throws an exception,
+
+}catch(e){catch receives it:
+
+   console.error(e);e.message == "BOOM"
+
+}finally{finally always executes
+
+   console.log("Done!");after try/catch, regardless
+
+}of error or not
+
+MDN Reference
+REGEXP
+
+var re = /pattern/flags;simple regexp construct, flags
+
+var re = new RegExp("pattern","flags");Alternate syntax
+
+
+gflag: match globally
+
+iflag: match case-insensitively
+
+mflag: ^ and $ match at newlines instead of string edges
+
+var re = /\w+/;match first word
+
+if( re.test("a String") ){ ... }true
+
+"a string".match(re);["a"]
+
+"a string".match(/\w+/g)["a","string"]
+
+var t = re.exec("A String");t.index == 0, t[0] == "A"
+
+"Some String".replace(re, "New");"New String"
+
+var barvar = "oo";variables in RegExp
+
+var re = new RegExp("f" + barvar,"gi");
+
+re.test("Foobar Foo");true
+
+"Foobar Foo".match(re);["Foo", "Foo"]
+
+MDN Reference
+ARRAYS
+
+var ar = [];ar.length == 0
+
+ar = ["one","two"];ar[0] == "one"
+
+ar.length == 2
+
+ar[ar.length] = "added";add new string at end of array
+
+ar.length = 7;set the length of ar to 7 elements
+
+ar.push("three");add new string at end of array
+
+ar.pop();remove last element, returns the element
+
+ar.shift();remove first element, returns the element
+
+ar.unshift("start");add new string at the beginning of the array
+
+var smaller = ar.slice(0,2);returns a subset of 'ar' from indexes 0 to 2
+
+ar.concat(["added","array"]);Add the elements of the provided array to the calling array
+
+ar.reverse();reverse the order of the elements
+
+var csv = ar.join(",");insert character between each element during join
+
+var result = ar.join();same as ar.join(",")
+
+MDN Reference
+OBJECTS
+
+var obj = {};create object
+
+obj.thinger = "member";direct assignment
+
+obj.thing.thinger = "b";INVALID, no 'thing' property yet
+
+obj["thinger"] == "member";alternate way to reference
+
+obj.withObject =
+   { deeper:"yet" }obj.withObject.deeper == "yet"
+
+obj.withFunc = {
+
+   aFunc: function(){ ... }
+
+}; obj.withFunc.aFunc()Will run aFunc function
+
+var ref = "aFunc";
+
+obj.withFunc[ref]();variable object reference
+
+delete obj.thinger;remove thinger from obj
+
+MDN Reference
+LOOPS
+
+do{ .. }while(truthy);always at least once
+
+while(truthy){ ... }maybe never, potentially forever
+
+while(truthy){ . break; . }exit loop on break
+
+for(var key in obj){ ... }each property of object
+
+for(var i = 0; i < ar.length; i++){ .. ar[i] .. }each element of Array ar
+
+MDN Reference: do - while - for - for...in
+BASIC OO
+
+var Thing = function(args){create a Constructor
+
+   this.args = args || {};
+
+}
+
+Thing.prototype.getArgs = function(){define a method of the Class:
+
+   return this.args;
+
+}
+
+var myThing = new Thing("2");create an instance
+
+myThing.getArgs();Returns "2"
+
+if(myThing instanceof Thing){...}test if myThing is a Thing (true)
+
+DATES
+
+var d = new Date();Returns a Date object set to the moment of execution
+
+d.getDate();the date (from 1-31)
+
+d.getDay();the day (from 0-6. 0=Sunday, 1=Monday, etc.)
+
+d.getMonth();the month (from 0-11. 0=January, 1=February, etc.)
+
+d.getFullYear();the year (four digits)
+
+d.getHours();the hour (from 0-23)
+
+d.getMinutes();the minute (from 0-59)
+
+d.getSeconds();the second (from 0-59)
+
+Create Date object for set time:
+
+new Date("Month dd, yyyy hh:mm:ss");
+
+new Date("Month dd, yyyy");
+
+new Date(yy, mm, dd, hh, mm, ss);
+
+new Date(yy, mm, dd);
+
+new Date(millisecondsSinceEpoch);
+
+MDN Reference
+CONTEXT AND SCOPE
+
+var a = "";variable scope
+
+function f(){looks outward until global scope is hit
+
+   var b = "x";b is local to f
+
+   a = "b";a is global
+
+}
+
+function f2(){looks outward until global scope is hit
+
+   var b = a;b is local to f2
+
+   a += "c";a is global
+
+}
+
+f(); f2();a == "bc", f.b = "x", f2.b = "b"
+
+var foo = function(){
+
+   this.bar = "foo";‘this’ is reserved and refers to the instantiated object
+
+   var t = this;
+
+   var baz = function(){jump scope
+
+      t.bar = "baz";access outer scope variable
+
+   }this.bar = "baz"
+
+}
+
+
+var print = function(){using .apply and .call to change context
+
+   console.log(arguments[0]+this.name)this is the context
+
+}
+
+function Thing(n) {Thing has one property
+
+   this.name = n;
+
+}
+
+var bar = new Thing("hat");instantiate bar
+
+var foo = new Thing("shoe");instantiate foo
+
+print.apply(bar,["Bar Thing: "]);call print with this set to bar, arguments in an array
+
+print.call(foo,"Foo Thing: ");call print with this set to foo, arguments listed
+
+apply - call
+TIMING
+
+var timer = setTimeout(function(){ ...}, 1000);execute code after 1 second
+
+clearTimeout(timer);abort pending execution
+
+var intTimer =execute function approx. every
+
+setInterval(function(){ ... },3 seconds
+
+3000);
+
+clearInterval(intTimer);abort pending interval
+
+var foobar = function(){ .. }execute a global function after one second

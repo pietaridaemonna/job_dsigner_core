@@ -19,14 +19,25 @@ job runner, continuous integration
 - Auth (Basic, LDAP)
 - Run, schedule jobs.. JOB is also TEST_SUITE!
 - Chain jobs and create complex architectures
+- LiveRewire: rechain jobs while they are running
 - Execute SQL thru several connectors (PG,MYSQL,ORACLE,MSSQL)
 - Reporting
 - Time-line execution database
 - Encryption
+- Selfhealing: monitor itself and throtlle resources as desired
 
 ## DOCS
 
 docs can be found in DOCS\JOB_dSIGNER.
+
+
+## OVERALL DESIGN
+
+task -> job -> stage -> pipeline -> project -> department -> domain
+
+each project/pipeline/stage can be connected to alias/environment/tags/globals
+
+pipelines can be interconnected (while team A cannot access pipeline of team B)
 
 ***All docs are MARKDOWN embedded in HTML, so just open them in browser!***
 

@@ -25,7 +25,10 @@ var bodyParser = require('body-parser');
 var index = require('./controllers/index');
 var dashboard = require('./controllers/admin/dashboard');
 var jobeditor = require('./controllers/ui/jobeditor');
-var suiteviz = require('./controllers/ui/suiteviz');
+//var suiteviz = require('./controllers/ui/suiteviz');
+
+
+var dbx = require('./db_objects/db_schema');
 
 
 var app = express();
@@ -45,7 +48,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/dashboard', dashboard);
 app.use('/jobeditor', jobeditor);
-app.use('/suiteviz', suiteviz);
+//app.use('/suiteviz', suiteviz);
+
+app.use('/dbx', dbx);
 
 // DB HANDLING .................................................................
 

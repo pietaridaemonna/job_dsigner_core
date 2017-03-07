@@ -15,46 +15,20 @@
 //     FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 //     ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+'use strict'
 
-// create a schema
-var jobSchema = new Schema({
-  name: String,
-  description: String,
-  type: String, //EXEC, SSH, POWERSHELL, SQL, LOG, REST
-  command: String,
-  color: String,
-  output: Buffer,
-  //connection_out: Array,
-  //PRECONDITIONS, POSTCONDITIONS
-  meta: {
-    created_by: String
-  },
-  created_at: Date,
-  updated_at: Date
-});
+//CORE
+// AND - all must be 1 to get 1
+// OR  - if one or more 1, then 1
+// NOT - inverted
 
-// the schema is useless so far
-// we need to create a model using it
-var Job = mongoose.model('Job', jobSchema);
+//COMPOSITE
+// NAND - AND followed by NOT - if at least one 0, then 1
+// NOR  - OR followed by NOT  - if all 0, then 1
+// EXOR - exclusive OR - if all not matching, then 1
+// EXNOR - exclusive NOR - if matching
 
-Job.methods.create = function(name, permission){
-  this.name = name;
-  this.permission = permission;
-}
 
-Job.methods.alter = function(permission){
-  this.permission = permission;
-}
+var logic_gate = {};
 
-Job.methods.rename = function(name){
-  this.name = name;
-}
-
-Job.methods.delete = function(id){
-  Job.remove({id:{$eq: id}}).exec();
-}
-
-// make this available to our users in our Node applications
-module.exports = Job;
+module.exports = Domain;

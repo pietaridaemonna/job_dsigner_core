@@ -1,0 +1,27 @@
+Workflow:
+
+Activities - tasks performed by someone (human, automation..)
+Events
+Gateways
+Sequence flow
+
+
+Organizing:
+
+Pools
+Swimlanes or lanes
+
+
+Readability:
+
+Annotation
+Links
+
+
+Special behavior:
+
+Messages
+Signals
+Timers
+Errors
+Repeating

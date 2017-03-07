@@ -15,46 +15,24 @@
 //     FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 //     ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 
+'use strict'
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var Department = require('department');
 
-// create a schema
-var jobSchema = new Schema({
+var domainSchema = new Schema({
   name: String,
+  organization: String,
+  dns_name: String,
+  itin: String, //international tax identifier number - NOT NUMBER as some countries doesn't have itin and can use completely different ID
   description: String,
-  type: String, //EXEC, SSH, POWERSHELL, SQL, LOG, REST
-  command: String,
-  color: String,
-  output: Buffer,
-  //connection_out: Array,
-  //PRECONDITIONS, POSTCONDITIONS
-  meta: {
-    created_by: String
+  location: {
+    gps_loc: Point,
+    address: String,
+    city: String,
+    country: String    
   },
   created_at: Date,
-  updated_at: Date
+  updated_at: Date,
+  departments: [Department]
 });
-
-// the schema is useless so far
-// we need to create a model using it
-var Job = mongoose.model('Job', jobSchema);
-
-Job.methods.create = function(name, permission){
-  this.name = name;
-  this.permission = permission;
-}
-
-Job.methods.alter = function(permission){
-  this.permission = permission;
-}
-
-Job.methods.rename = function(name){
-  this.name = name;
-}
-
-Job.methods.delete = function(id){
-  Job.remove({id:{$eq: id}}).exec();
-}
-
-// make this available to our users in our Node applications
-module.exports = Job;
