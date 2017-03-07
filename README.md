@@ -25,6 +25,7 @@ job runner, continuous integration
 - Time-line execution database
 - Encryption
 - Selfhealing: monitor itself and throtlle resources as desired
+- Build and deploy any version at any time
 
 ## DOCS
 
@@ -33,7 +34,7 @@ docs can be found in DOCS\JOB_dSIGNER.
 
 ## OVERALL DESIGN
 
-task -> job -> stage -> pipeline -> project -> department -> domain
+task/step -> job -> stage -> pipeline -> project -> department -> domain
 
 each project/pipeline/stage can be connected to alias/environment/tags/globals
 

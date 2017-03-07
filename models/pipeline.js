@@ -23,10 +23,8 @@ var Stage = require('stage');
 
 var pipelineSchema = new Schema({
   name: String,
-  organization: String,
-  dns_name: String,
-  itin: String, //international tax identifier number - NOT NUMBER as some countries doesn't have itin and can use completely different ID
   description: String,
+  tags: [String],
   location: {
     gps_loc: Point,
     address: String,
