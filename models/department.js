@@ -21,7 +21,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var Project = require('project');
 
-var jobSchema = new Schema({
+var departmentSchema = new Schema({
   name: String,
   organization: String,
   dns_name: String,
@@ -31,3 +31,9 @@ var jobSchema = new Schema({
   updated_at: Date,
   tasks: [Project]
 })
+
+
+var Department = mongoose.model('Department', departmentSchema);
+
+// make this available to our users in our Node applications
+module.exports = Department;

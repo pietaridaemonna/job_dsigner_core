@@ -28,3 +28,9 @@ var projectSchema = new Schema({
   updated_at: Date,
   pipelines: [Pipeline]
 })
+
+
+var Project = mongoose.model('Project', projectSchema);
+
+// make this available to our users in our Node applications
+module.exports = Project;

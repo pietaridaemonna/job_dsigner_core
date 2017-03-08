@@ -21,19 +21,21 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var Job = require('job');
 
+// stage is a step for defining a conceptually distinct subset of the entire Pipeline,
+// for example: "Build", "Test", and "Deploy"
+
 var stageSchema = new Schema({
   name: String,
-  organization: String,
-  dns_name: String,
-  itin: String, //international tax identifier number - NOT NUMBER as some countries doesn't have itin and can use completely different ID
   description: String,
-  location: {
-    gps_loc: Point,
-    address: String,
-    city: String,
-    country: String    
-  },
+  color: String,
+  tags: [String],
   created_at: Date,
   updated_at: Date,
   jobs: [Job]
 })
+
+
+var Stage = mongoose.model('Stage', stageSchema);
+
+// make this available to our users in our Node applications
+module.exports = Stage;

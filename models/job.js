@@ -23,17 +23,37 @@ var Task = require('task');
 
 var jobSchema = new Schema({
   name: String,
-  organization: String,
-  dns_name: String,
-  itin: String, //international tax identifier number - NOT NUMBER as some countries doesn't have itin and can use completely different ID
   description: String,
-  location: {
-    gps_loc: Point,
-    address: String,
-    city: String,
-    country: String    
-  },
+  trigger: String, //ONCE, NTIMES, UNTIL_SUCCESS, UNTIL_FAIL, CRON
+  type: String, //EXEC, SSH, POWERSHELL, SQL, LOG, REST
+  command: String,
+  output: Buffer,
   created_at: Date,
   updated_at: Date,
-  tasks: [Task]
+  tasks: [Task],
+  status: String
 })
+
+
+var Job = mongoose.model('Job', jobSchema);
+
+Job.methods.create = function(name, permission){
+  this.name = name;
+  this.permission = permission;
+}
+
+Job.methods.alter = function(permission){
+  this.permission = permission;
+}
+
+Job.methods.rename = function(name){
+  this.name = name;
+}
+
+Job.methods.delete = function(id){
+  Job.remove({id:{$eq: id}}).exec();
+}
+
+
+// make this available to our users in our Node applications
+module.exports = Job;

@@ -36,3 +36,9 @@ var domainSchema = new Schema({
   updated_at: Date,
   departments: [Department]
 });
+
+
+var Domain = mongoose.model('Domain', domainSchema);
+
+// make this available to our users in our Node applications
+module.exports = Domain;

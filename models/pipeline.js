@@ -25,13 +25,13 @@ var pipelineSchema = new Schema({
   name: String,
   description: String,
   tags: [String],
-  location: {
-    gps_loc: Point,
-    address: String,
-    city: String,
-    country: String    
-  },
   created_at: Date,
   updated_at: Date,
   stages: [Stage]
 })
+
+
+var Pipeline = mongoose.model('Pipeline', pipelineSchema);
+
+// make this available to our users in our Node applications
+module.exports = Pipeline;
