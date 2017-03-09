@@ -32,5 +32,19 @@ var projectSchema = new Schema({
 
 var Project = mongoose.model('Project', projectSchema);
 
+Project.methods.create = function(name, permission){
+  this.name = name;
+  this.permission = permission;
+}
+
+Project.methods.add_pipeline = function(name, permission){
+  this.name = name;
+  this.permission = permission;
+}
+
+Project.methods.delete = function(id){
+  Stage.remove({id:{$eq: id}}).exec();
+}
+
 // make this available to our users in our Node applications
 module.exports = Project;

@@ -19,7 +19,7 @@
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var Stage = require('stage');
+var Stage = require('Stage');
 
 var pipelineSchema = new Schema({
   name: String,
@@ -32,6 +32,15 @@ var pipelineSchema = new Schema({
 
 
 var Pipeline = mongoose.model('Pipeline', pipelineSchema);
+
+Pipeline.methods.create = function(name, permission){
+  this.name = name;
+  this.permission = permission;
+}
+
+Pipeline.methods.delete = function(id){
+  Pipeline.remove({id:{$eq: id}}).exec();
+}
 
 // make this available to our users in our Node applications
 module.exports = Pipeline;

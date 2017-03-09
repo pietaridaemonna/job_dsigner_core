@@ -23,9 +23,6 @@ var Project = require('project');
 
 var departmentSchema = new Schema({
   name: String,
-  organization: String,
-  dns_name: String,
-  itin: String, //international tax identifier number - NOT NUMBER as some countries doesn't have itin and can use completely different ID
   description: String,
   created_at: Date,
   updated_at: Date,

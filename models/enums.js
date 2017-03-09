@@ -17,35 +17,37 @@
 
 'use strict'
 
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
 
-var taskSchema = new Schema({
-  name: String,
-  description: String,
-  type: String, //CommandLine, SSH, SQL, SourceControl
-  command: String
-})
+var ENV_TYPE = Object.freeze({
+  PROD : {
+      value: 0, name: "Production", code: "Prod"
+    }, 
+  DEV: {
+      value: 1, name: "Development", code: "Dev"
+    }, 
+  TEST : {
+      value: 2, name: "Testing", code: "Test"
+    }
+});
 
-var Task = mongoose.model('Task', taskSchema);
-
-Task.methods.create = function(name, permission){
-  this.name = name;
-  this.permission = permission;
-}
-
-Task.methods.alter = function(permission){
-  this.permission = permission;
-}
-
-Task.methods.rename = function(name){
-  this.name = name;
-}
-
-Task.methods.delete = function(id){
-  Task.remove({id:{$eq: id}}).exec();
-}
+var JOB_TYPE = Object.freeze({
+  CLI : {
+      value: 0, name: "Commandline", code: "Prod"
+    }, 
+  SSH: {
+      value: 1, name: "SSH remote shell", code: "Dev"
+    }, 
+  POWERSHELL : {
+      value: 2, name: "Powershell", code: "Test"
+    }, 
+  PYTHON : {
+      value: 2, name: "Testing", code: "Test"
+    }, 
+  PERL : {
+      value: 2, name: "Testing", code: "Test"
+    }
+});
 
 
 // make this available to our users in our Node applications
-module.exports = Task;
+module.exports = ENV_TYPE;
