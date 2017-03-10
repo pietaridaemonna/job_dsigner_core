@@ -18,7 +18,8 @@
 'use strict'
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var Department = require('department');
+var departmnt = require('./department');
+
 
 var domainSchema = new Schema({
   name: String,
@@ -34,7 +35,7 @@ var domainSchema = new Schema({
   },
   created_at: Date,
   updated_at: Date,
-  departments: [Department]
+  departments: [departmnt]
 });
 
 

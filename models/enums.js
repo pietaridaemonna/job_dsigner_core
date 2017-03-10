@@ -19,33 +19,87 @@
 
 
 var ENV_TYPE = Object.freeze({
-  PROD : {
-      value: 0, name: "Production", code: "Prod"
-    }, 
+  PROD: {
+    value: 0,
+    name: "Production",
+    code: "Prod"
+  },
   DEV: {
-      value: 1, name: "Development", code: "Dev"
-    }, 
-  TEST : {
-      value: 2, name: "Testing", code: "Test"
-    }
+    value: 1,
+    name: "Development",
+    code: "Dev"
+  },
+  TEST: {
+    value: 2,
+    name: "Testing",
+    code: "Test"
+  }
 });
 
 var JOB_TYPE = Object.freeze({
-  CLI : {
-      value: 0, name: "Commandline", code: "Prod"
-    }, 
+  CLI: {
+    value: 0,
+    name: "Commandline",
+    code: "Prod"
+  },
   SSH: {
-      value: 1, name: "SSH remote shell", code: "Dev"
-    }, 
-  POWERSHELL : {
-      value: 2, name: "Powershell", code: "Test"
-    }, 
-  PYTHON : {
-      value: 2, name: "Testing", code: "Test"
-    }, 
-  PERL : {
-      value: 2, name: "Testing", code: "Test"
-    }
+    value: 1,
+    name: "SSH remote shell",
+    code: "Dev"
+  },
+  POWERSHELL: {
+    value: 2,
+    name: "Powershell",
+    code: "Test"
+  },
+  PYTHON: {
+    value: 2,
+    name: "Testing",
+    code: "Test"
+  },
+  PERL: {
+    value: 2,
+    name: "Testing",
+    code: "Test"
+  }
+});
+
+var CLI_VARS_TYPE = Object.freeze({
+  POSIX: {
+    value: 0,
+    name: "Commandline",
+    prefix: "-"
+  },
+  GNU: {
+    value: 1,
+    name: "SSH remote shell",
+    prefix: "--"
+  },
+  SHELL: {
+    value: 2,
+    name: "Powershell",
+    prefix: "$variable=value"
+  },
+  JAVA: {
+    value: 2,
+    name: "Testing",
+    prefix: "-D"
+  },
+  DB: {
+    value: 2,
+    name: "Testing",
+    prefix: "jdbc:oracle://127.0.0.1:8080"
+  },
+  ROBOTFRAMEWORK: {
+    value: 2,
+    name: "Testing",
+    prefix: "Test"
+  },
+  CUSTOM: {
+    value: 2,
+    name: "Testing",
+    prefix: "Test"
+  }
 });
 
 

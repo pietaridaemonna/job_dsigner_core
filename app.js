@@ -27,8 +27,21 @@ var dashboard = require('./controllers/admin/dashboard');
 var jobeditor = require('./controllers/ui/jobeditor');
 //var suiteviz = require('./controllers/ui/suiteviz');
 
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://16.54.146.187/jobd');
+var FirstDomain = require('./models/job_dsigner_schema');
 
-var dbx = require('./db_objects/db_schema');
+var kitty = new FirstDomain({ name: 'Zildjian' });
+kitty.save(function (err) {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log('meow');
+  }
+});
+
+
+////var dbx = require('./db_objects/db_schema');
 
 
 var app = express();
@@ -50,7 +63,7 @@ app.use('/dashboard', dashboard);
 app.use('/jobeditor', jobeditor);
 //app.use('/suiteviz', suiteviz);
 
-app.use('/dbx', dbx);
+//app.use('/dbx', dbx);
 
 // DB HANDLING .................................................................
 
