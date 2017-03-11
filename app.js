@@ -27,18 +27,21 @@ var dashboard = require('./controllers/admin/dashboard');
 var jobeditor = require('./controllers/ui/jobeditor');
 //var suiteviz = require('./controllers/ui/suiteviz');
 
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://16.54.146.187/jobd');
-var FirstDomain = require('./models/job_dsigner_schema');
 
-var kitty = new FirstDomain({ name: 'Zildjian' });
-kitty.save(function (err) {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log('meow');
-  }
+var FirstDomain = require('./models/job_dsigner_schema');
+var dom = FirstDomain.Domain();
+dom.name = 'first domain';
+dom.dns_name = 'sdljf';
+
+dom.save(function(err) {
+    if (err) {
+        console.log(err);
+    } else {
+        console.log('meow2');
+    }
 });
+
+
 
 
 ////var dbx = require('./db_objects/db_schema');
@@ -74,20 +77,20 @@ app.use('/jobeditor', jobeditor);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
 });
 
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+    // render the error page
+    res.status(err.status || 500);
+    res.render('error');
 });
 
 module.exports = app;

@@ -18,16 +18,17 @@
 'use strict'
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-
+var ObjectId = Schema.ObjectId;
 
 var taskSchema = new Schema({
-  name: String,
-  description: String,
-  type: String, //CommandLine, SSH, SQL, SourceControl
-  command: String
+    id: ObjectId,
+    name: String,
+    description: String,
+    type: String, //CommandLine, SSH, SQL, SourceControl
+    command: String
 })
 
-var Task = mongoose.model('Task', taskSchema);
+
 
 // Task.methods.create = function(name, permission){
 //   this.name = name;
@@ -48,20 +49,20 @@ var Task = mongoose.model('Task', taskSchema);
 
 
 var jobSchema = new Schema({
-  name: String,
-  description: String,
-  trigger: String, //ONCE, NTIMES, UNTIL_SUCCESS, UNTIL_FAIL, CRON
-  type: String, //EXEC, SSH, POWERSHELL, SQL, LOG, REST
-  command: String,
-  output: Buffer,
-  created_at: Date,
-  updated_at: Date,
-  tasks: [{type: Schema.ObjectId, ref: 'Task'}],
-  status: String
+    name: String,
+    description: String,
+    trigger: String, //ONCE, NTIMES, UNTIL_SUCCESS, UNTIL_FAIL, CRON
+    type: String, //EXEC, SSH, POWERSHELL, SQL, LOG, REST
+    command: String,
+    output: Buffer,
+    created_at: Date,
+    updated_at: Date,
+    tasks: [{ type: Schema.ObjectId, ref: 'Task' }],
+    status: String
 })
 
 
-var Job = mongoose.model('Job', jobSchema);
+
 
 // Job.methods.create = function(name, permission){
 //   this.name = name;
@@ -81,17 +82,17 @@ var Job = mongoose.model('Job', jobSchema);
 // }
 
 var stageSchema = new Schema({
-  name: String,
-  description: String,
-  color: String,
-  tags: [String],
-  created_at: Date,
-  updated_at: Date,
-  jobs: [{type: Schema.ObjectId, ref: 'Job'}]
+    name: String,
+    description: String,
+    color: String,
+    tags: [String],
+    created_at: Date,
+    updated_at: Date,
+    jobs: [{ type: Schema.ObjectId, ref: 'Job' }]
 })
 
 
-var Stage = mongoose.model('Stage', stageSchema);
+
 
 // Stage.methods.create = function(name, permission){
 //   this.name = name;
@@ -112,16 +113,16 @@ var Stage = mongoose.model('Stage', stageSchema);
 
 
 var pipelineSchema = new Schema({
-  name: String,
-  description: String,
-  tags: [String],
-  created_at: Date,
-  updated_at: Date,
-  stages: [{type: Schema.ObjectId, ref: 'Stage'}]
+    name: String,
+    description: String,
+    tags: [String],
+    created_at: Date,
+    updated_at: Date,
+    stages: [{ type: Schema.ObjectId, ref: 'Stage' }]
 })
 
 
-var Pipeline = mongoose.model('Pipeline', pipelineSchema);
+
 
 // Pipeline.methods.create = function(name, permission){
 //   this.name = name;
@@ -133,14 +134,14 @@ var Pipeline = mongoose.model('Pipeline', pipelineSchema);
 // }
 
 var projectSchema = new Schema({
-  name: String,
-  description: String,
-  created_at: Date,
-  updated_at: Date,
-  pipelines: [{type: Schema.ObjectId, ref: 'Pipeline'}]
+    name: String,
+    description: String,
+    created_at: Date,
+    updated_at: Date,
+    pipelines: [{ type: Schema.ObjectId, ref: 'Pipeline' }]
 })
 
-var Project = mongoose.model('Project', projectSchema);
+
 
 // Project.methods.create = function(name, permission){
 //   this.name = name;
@@ -157,34 +158,50 @@ var Project = mongoose.model('Project', projectSchema);
 // }
 
 var departmentSchema = new Schema({
-  name: String,
-  description: String,
-  created_at: Date,
-  updated_at: Date,
-  tasks: [{type: Schema.ObjectId, ref: 'Project'}]
+    name: String,
+    description: String,
+    created_at: Date,
+    updated_at: Date,
+    tasks: [{ type: Schema.ObjectId, ref: 'Project' }]
 })
 
-var Department = mongoose.model('Department', departmentSchema);
+
 
 var domainSchema = new Schema({
-  name: String,
-  organization: String,
-  dns_name: String,
-  itin: String, //international tax identifier number - NOT NUMBER as some countries doesn't have itin and can use completely different ID
-  description: String,
-  location: {
-    gps_loc: String,
-    address: String,
-    city: String,
-    country: String    
-  },
-  created_at: Date,
-  updated_at: Date,
-  departments: [{type: Schema.ObjectId, ref: 'Department'}]
+    name: String,
+    organization: String,
+    dns_name: String,
+    itin: String, //international tax identifier number - NOT NUMBER as some countries doesn't have itin and can use completely different ID
+    description: String,
+    location: {
+        gps_loc: String,
+        address: String,
+        city: String,
+        country: String
+    },
+    created_at: Date,
+    updated_at: Date,
+    departments: [{ type: Schema.ObjectId, ref: 'Department' }]
 });
 
 
+
+
+mongoose.connect('mongodb://127.0.0.1:27017/job_dsigner_db');
+
+var Task = mongoose.model('Task', taskSchema);
+var Job = mongoose.model('Job', jobSchema);
+var Stage = mongoose.model('Stage', stageSchema);
+var Pipeline = mongoose.model('Pipeline', pipelineSchema);
+var Project = mongoose.model('Project', projectSchema);
+var Department = mongoose.model('Department', departmentSchema);
 var Domain = mongoose.model('Domain', domainSchema);
 
-// make this available to our users in our Node applications
-module.exports = Domain;
+exports.Task = Task;
+exports.Job = Job;
+exports.Stage = Stage;
+exports.Pipeline = Pipeline;
+exports.Project = Project;
+exports.Department = Department;
+exports.Domain = Domain;
+exports.mongoose = mongoose;
