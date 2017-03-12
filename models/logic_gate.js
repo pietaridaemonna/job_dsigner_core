@@ -17,18 +17,39 @@
 
 'use strict'
 
-//CORE
+// CORE
 // AND - all must be 1 to get 1
 // OR  - if one or more 1, then 1
 // NOT - inverted
 
-//COMPOSITE
+// COMPOSITE
 // NAND - AND followed by NOT - if at least one 0, then 1
 // NOR  - OR followed by NOT  - if all 0, then 1
 // EXOR - exclusive OR - if all not matching, then 1
 // EXNOR - exclusive NOR - if matching
 
+var logic_gate = {
+    gate_type: ['AND', 'OR', 'NOT'],
+    connections_in: [Number],
+    connect_to: Number,
+    compute_conns_in: function() {
+        switch (gate_type) {
+            case 'AND':
+                console.log('Using AND')
+                break
+            case 'OR':
+                console.log('Using OR')
+                break
+            case 'NOT':
+                console.log('Using NOT')
+                break
+            default:
+                console.log('Sorry, we are out of ' + expr + '.')
+        }
+    },
+    event_completed: function() {
+        alert("event_completed " + this.connections_in[0] + '.')
+    }
+}
 
-var logic_gate = {};
-
-module.exports = Domain;
+module.exports = Domain
