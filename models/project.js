@@ -22,28 +22,32 @@ var Schema = mongoose.Schema;
 var Pipeline = require('pipeline');
 
 var projectSchema = new Schema({
-  name: String,
-  description: String,
-  created_at: Date,
-  updated_at: Date,
-  pipelines: [Pipeline]
+    name: String,
+    description: String,
+    type: {
+        type: String,
+        enum: ['Development', 'Current', 'Maintenance', ]
+    },
+    created_at: Date,
+    updated_at: Date,
+    pipelines: [Pipeline]
 })
 
 
 var Project = mongoose.model('Project', projectSchema);
 
-Project.methods.create = function(name, permission){
-  this.name = name;
-  this.permission = permission;
+Project.methods.create = function(name, permission) {
+    this.name = name;
+    this.permission = permission;
 }
 
-Project.methods.add_pipeline = function(name, permission){
-  this.name = name;
-  this.permission = permission;
+Project.methods.add_pipeline = function(name, permission) {
+    this.name = name;
+    this.permission = permission;
 }
 
-Project.methods.delete = function(id){
-  Stage.remove({id:{$eq: id}}).exec();
+Project.methods.delete = function(id) {
+    Stage.remove({ id: { $eq: id } }).exec();
 }
 
 // make this available to our users in our Node applications

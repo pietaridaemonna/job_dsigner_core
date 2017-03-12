@@ -22,20 +22,24 @@ var departmnt = require('./department');
 
 
 var domainSchema = new Schema({
-  name: String,
-  organization: String,
-  dns_name: String,
-  itin: String, //international tax identifier number - NOT NUMBER as some countries doesn't have itin and can use completely different ID
-  description: String,
-  location: {
-    gps_loc: Point,
-    address: String,
-    city: String,
-    country: String    
-  },
-  created_at: Date,
-  updated_at: Date,
-  departments: [departmnt]
+    name: String,
+    organization: String,
+    dns_name: String,
+    itin: String, //international tax identifier number - NOT NUMBER as some countries doesn't have itin and can use completely different ID
+    description: String,
+    type: {
+        type: String,
+        enum: ['Business', 'Non-profit', 'Personal', ]
+    },
+    location: {
+        gps_loc: Point,
+        address: String,
+        city: String,
+        country: String
+    },
+    created_at: Date,
+    updated_at: Date,
+    departments: [departmnt]
 });
 
 

@@ -21,29 +21,42 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var taskSchema = new Schema({
-  name: String,
-  description: String,
-  type: String, //CommandLine, SSH, SQL, SourceControl
-  command: String
+    name: String,
+    description: String,
+    type: {
+        type: String,
+        enum: [
+            'COMMANDLINE',
+            'SSH',
+            'SQL',
+            'SOURCE_CONTROL',
+            'REST',
+            'SOAP',
+            'PYTHON',
+            'PERL',
+            'POWERSHELL'
+        ]
+    },
+    command: String
 })
 
 var Task = mongoose.model('Task', taskSchema);
 
-Task.methods.create = function(name, permission){
-  this.name = name;
-  this.permission = permission;
+Task.methods.create = function(name, permission) {
+    this.name = name;
+    this.permission = permission;
 }
 
-Task.methods.alter = function(permission){
-  this.permission = permission;
+Task.methods.alter = function(permission) {
+    this.permission = permission;
 }
 
-Task.methods.rename = function(name){
-  this.name = name;
+Task.methods.rename = function(name) {
+    this.name = name;
 }
 
-Task.methods.delete = function(id){
-  Task.remove({id:{$eq: id}}).exec();
+Task.methods.delete = function(id) {
+    Task.remove({ id: { $eq: id } }).exec();
 }
 
 

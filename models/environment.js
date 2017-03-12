@@ -21,29 +21,32 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var environmentSchema = new Schema({
-  name: String,
-  description: String,
-  type: String, //DEV, PROD, TEST, EXPERIMENTAL
-  env_variables: [String]
+    name: String,
+    description: String,
+    type: {
+        type: String,
+        enum: ['Production', 'Test', 'Development', ]
+    },
+    env_variables: [String]
 })
 
 var Environment = mongoose.model('Environment', environmentSchema);
 
-Environment.methods.create = function(name, permission){
-  this.name = name;
-  this.permission = permission;
+Environment.methods.create = function(name, permission) {
+    this.name = name;
+    this.permission = permission;
 }
 
-Environment.methods.add_variable = function(variable, path){
-  this.permission = permission;
+Environment.methods.add_variable = function(variable, path) {
+    this.permission = permission;
 }
 
-Environment.methods.remove_variable = function(variable){
-  this.name = name;
+Environment.methods.remove_variable = function(variable) {
+    this.name = name;
 }
 
-Environment.methods.delete = function(id){
-  Environment.remove({id:{$eq: id}}).exec();
+Environment.methods.delete = function(id) {
+    Environment.remove({ id: { $eq: id } }).exec();
 }
 
 
