@@ -15,45 +15,40 @@
 //     FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 //     ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 
+'use strict'
+
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-// create a schema
-var userSchema = new Schema({
-  name: String,
-  username: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-  role: String,
-  location: String,
-  avatar_path: String,
-  meta: {
-    phone: Number,
-    email: String
-  },
-  created_at: Date,
-  updated_at: Date
-});
+var environmentSchema = new Schema({
+    name: String,
+    description: String,
+    type: {
+        type: String,
+        enum: ['Production', 'Test', 'Development', ]
+    },
+    env_variables: [String]
+})
 
-// the schema is useless so far
-// we need to create a model using it
-var User = mongoose.model('User', userSchema);
+var Environment = mongoose.model('Environment', environmentSchema);
 
-User.prototype.create = function(name, permission){
-  this.name = name;
-  this.permission = permission;
+Environment.methods.create = function(name, permission) {
+    this.name = name;
+    this.permission = permission;
 }
 
-User.prototype.alter = function(permission){
-  this.permission = permission;
+Environment.methods.add_variable = function(variable, path) {
+    this.permission = permission;
 }
 
-User.prototype.rename = function(name){
-  this.name = name;
+Environment.methods.remove_variable = function(variable) {
+    this.name = name;
 }
 
-User.prototype.delete = function(name){
-  this.name = name;
+Environment.methods.delete = function(id) {
+    Environment.remove({ id: { $eq: id } }).exec();
 }
+
 
 // make this available to our users in our Node applications
-module.exports = User;
+module.exports = Task;

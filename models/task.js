@@ -38,7 +38,7 @@ var taskSchema = new Schema({
         ]
     },
     command: String
-})
+},  { timestamps: { createdAt: 'created_at' } });
 
 var Task = mongoose.model('Task', taskSchema);
 

@@ -28,11 +28,9 @@ var jobSchema = new Schema({
   type: String, //EXEC, SSH, POWERSHELL, SQL, LOG, REST
   command: String,
   output: Buffer,
-  created_at: Date,
-  updated_at: Date,
   tasks: [Task],
   status: String
-})
+},  { timestamps: { createdAt: 'created_at' } });
 
 
 var Job = mongoose.model('Job', jobSchema);

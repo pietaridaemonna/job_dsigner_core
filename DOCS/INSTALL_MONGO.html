@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<title>EXTRAS</title>
+
+<xmp theme="journal" style="display:none;">
+# Commandments of programmer
+
+## Generic
+
+create repo file
+
+'''bash
+cat /etc/yum.repos.d/mongodb-org-3.4.repo
+'''
+
+and insert
+
+'''bash
+[mongodb-org-3.4]
+name=MongoDB Repository
+baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/3.4/x86_64/
+gpgcheck=1
+enabled=1
+gpgkey=https://www.mongodb.org/static/pgp/server-3.4.asc
+'''
+
+'''bash
+sudo yum install -y mongodb-org
+'''
+
+### Selinux
+
+'''bash
+semanage port -a -t mongod_port_t -p tcp 27017
+'''
+
+</xmp>
+
+<script src="http://strapdownjs.com/v/0.2/strapdown.js"></script>
+</html>

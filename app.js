@@ -24,20 +24,35 @@ var bodyParser = require('body-parser');
 
 var index = require('./controllers/index');
 var dashboard = require('./controllers/admin/dashboard');
-var jobeditor = require('./controllers/ui/jobeditor');
-//var suiteviz = require('./controllers/ui/suiteviz');
+var jobeditor = require('./controllers/user_ui/jobeditor');
+var suiteviz = require('./controllers/user_ui/suiteviz');
 
 
 var FirstDomain = require('./models/job_dsigner_schema');
 var dom = FirstDomain.Domain();
 dom.name = 'first domain';
 dom.dns_name = 'sdljf';
+dom.type = 'Business';
 
 dom.save(function(err) {
     if (err) {
         console.log(err);
     } else {
         console.log('meow2');
+    }
+});
+
+var FirstDomain2 = require('./models/job_dsigner_schema');
+var dom2 = FirstDomain2.Domain();
+dom2.name = 'second domain';
+dom2.dns_name = 'sdlxcvzxvcjf';
+dom2.type = 'Business';
+
+dom2.save(function(err) {
+    if (err) {
+        console.log(err);
+    } else {
+        console.log('meow222');
     }
 });
 

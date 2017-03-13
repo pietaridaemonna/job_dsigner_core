@@ -22,18 +22,26 @@ var departmnt = require('./department');
 
 
 var domainSchema = new Schema({
-    name: String,
+    name: {
+        type: String,
+        required: true,
+        unique: true
+    },
     organization: String,
     dns_name: String,
     itin: String, //international tax identifier number - NOT NUMBER as some countries doesn't have itin and can use completely different ID
     description: String,
     type: {
         type: String,
-        enum: ['Business', 'Non-profit', 'Personal', ]
+        enum: ['Business', 'Government', 'Non-profit', 'Personal', ]
     },
     location: {
-        gps_loc: Point,
-        address: String,
+        address: {
+            street: String,
+            city: String,
+            state: String,
+            zip: Number
+        },
         city: String,
         country: String
     },
@@ -44,6 +52,15 @@ var domainSchema = new Schema({
 
 
 var Domain = mongoose.model('Domain', domainSchema);
+
+Domain.methods.find_domain_by_dns = function (_dns_name) {
+    //Domain.find({ dns_name: dns_name }).where('created_at').gt(monthAgo).exec(function(err, users) {
+    Domain.find({
+        dns_name: _dns_name
+    }).exec(function (err, users) {
+        if (err) throw err;
+    });
+}
 
 // make this available to our users in our Node applications
 module.exports = Domain;

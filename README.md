@@ -18,6 +18,9 @@ job runner, continuous integration
 - Install scripts (Hyper-v, Jenkins, tools... etc)
 - Auth (Basic, LDAP)
 - Run, schedule jobs.. JOB is also TEST_SUITE!
+- Approvals: notify user with email that job is waiting for approval.
+- Templates (to create new Pipelines)
+- Filters (to discard unwanted data)
 - Chain jobs and create complex architectures
 - LiveRewire: rechain jobs while they are running
 - Execute SQL thru several connectors (PG,MYSQL,ORACLE,MSSQL)

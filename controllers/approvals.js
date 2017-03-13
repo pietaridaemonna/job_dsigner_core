@@ -1,4 +1,3 @@
-
 // The MIT License (MIT)
 // Copyright © 2017 Peter Ducai, http://daemonna.com <peter.ducai@gmail.com>
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software
@@ -16,38 +15,13 @@
 //     FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 //     ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 
+var express = require('express');
+var router = express.Router();
 
-'use strict'
+/* GET home page. */
+router.get('/', function(req, res, next) {
+  console.log('fokin index!!!!!!!!!!!!!!');
+  res.render('index', { title: 'Express' });
+});
 
-var JobSuite = {
-
-  Id: 0,
-  Name:"sample job pool",
-  Description: "sample Description",
-  StartingJob: 1,
-  pool: [],
-  ConnectorsOUT: []
-};
-
-JobSuite.methods.add_job = function (job_number) {
-  fs.appendFile(internal_logger.log_path, "[ " + Date.now + " ] [ERROR] " + message, function (err) {
-    if (err) throw err;
-    this.ConnectorsOUT.push(_Id),
-      console.log('add_job ' + job_number);
-  });
-}
-
-JobSuite.methods.remove_job = function (job_number) {
-    this.ConnectorsOUT.push(_Id),
-    console.log('remove_job ' + job_number);
-}
-
-JobSuite.methods.list_jobs = function () {
-  fs.appendFile(internal_logger.log_path, "[ " + Date.now + " ] [ERROR] " + message, function (err) {
-    if (err) throw err;
-    this.ConnectorsOUT.push(_Id),
-      console.log('list_jobs ');
-  });
-}
-
-module.exports = JobSuite;
+module.exports = router;

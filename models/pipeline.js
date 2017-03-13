@@ -25,10 +25,22 @@ var pipelineSchema = new Schema({
   name: String,
   description: String,
   tags: [String],
-  created_at: Date,
-  updated_at: Date,
+  schedule: String,
+  status: {
+    type: string,
+    enum: ['NOT_RUNNING', 'IN_PROGRESS', 'PASSED', 'FAILED', 'CANCELLED']
+  },
   stages: [Stage]
-})
+},  { timestamps: { createdAt: 'created_at' } });
+
+// pipelineSchema.pre('save', function(next){
+//   now = new Date();
+//   this.updated_at = now;
+//   if ( !this.updated_at ) {
+//     this.updated_at = now;
+//   }
+//   next();
+// });
 
 
 var Pipeline = mongoose.model('Pipeline', pipelineSchema);

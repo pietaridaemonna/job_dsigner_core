@@ -26,13 +26,19 @@ var projectSchema = new Schema({
     description: String,
     type: {
         type: String,
-        enum: ['Development', 'Current', 'Maintenance', ]
+        enum: ['Development', 'Current', 'Maintenance']
     },
-    created_at: Date,
-    updated_at: Date,
     pipelines: [Pipeline]
-})
+},  { timestamps: { createdAt: 'created_at' } });
 
+// projectSchema.pre('save', function(next){
+//   now = new Date();
+//   this.updated_at = now;
+//   if ( !this.updated_at ) {
+//     this.updated_at = now;
+//   }
+//   next();
+// });
 
 var Project = mongoose.model('Project', projectSchema);
 

@@ -16,33 +16,10 @@
 //     ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 
 'use strict'
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
 
-// create a schema
-var domainSchema = new Schema({
-  name: String,
-  organization: String,
-  dns_name: String,
-  admin: { type: String, required: true },
-  description: String,
-  location: {
-    gps_loc: Point,
-    city: String,
-    country: String,
-    
-  },
-  meta: {
-    max_pools: Number,
-    max_users: String
-  },
-  created_at: Date,
-  updated_at: Date
-});
+var Filter = {};
 
-// the schema is useless so far
-// we need to create a model using it
-var Domain = mongoose.model('Domain', domainSchema);
+
 
 // make this available to our users in our Node applications
-module.exports = Domain;
+module.exports = Filter;

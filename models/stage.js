@@ -23,16 +23,15 @@ var Job = require('Job');
 
 // stage is a step for defining a conceptually distinct subset of the entire Pipeline,
 // for example: "Build", "Test", and "Deploy"
+//Details of a specific stage run: run number, status, when it was triggered, who triggered it and duration of the stage
 
 var stageSchema = new Schema({
   name: String,
   description: String,
   color: String,
   tags: [String],
-  created_at: Date,
-  updated_at: Date,
   jobs: [Job]
-})
+},  { timestamps: { createdAt: 'created_at' } });
 
 
 var Stage = mongoose.model('Stage', stageSchema);

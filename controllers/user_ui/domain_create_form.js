@@ -15,37 +15,12 @@
 //     FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 //     ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+var express = require('express');
+var router = express.Router();
 
-// create a schema
-var roleSchema = new Schema({
-  name: String,
-  permission: String,
-  created_at: Date,
-  updated_at: Date
+/* GET home page. */
+router.get('/', function(req, res, next) {
+  res.render('domain_create_form');
 });
 
-// the schema is useless so far
-// we need to create a model using it
-var Role = mongoose.model('Role', roleSchema);
-
-Role.prototype.create = function(name, permission){
-  this.name = name;
-  this.permission = permission;
-}
-
-Role.prototype.alter = function(permission){
-  this.permission = permission;
-}
-
-Role.prototype.rename = function(name){
-  this.name = name;
-}
-
-Role.prototype.delete = function(name){
-  this.name = name;
-}
-
-// make this available to our users in our Node applications
-module.exports = Role;
+module.exports = router;
