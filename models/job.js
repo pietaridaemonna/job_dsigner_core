@@ -19,7 +19,7 @@
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var Task = require('task');
+var Task = require('./task');
 
 var jobSchema = new Schema({
   name: String,
@@ -33,25 +33,27 @@ var jobSchema = new Schema({
 },  { timestamps: { createdAt: 'created_at' } });
 
 
-var Job = mongoose.model('Job', jobSchema);
 
-Job.methods.create = function(name, permission){
+
+jobSchema.methods.create = function(name, permission){
   this.name = name;
   this.permission = permission;
 }
 
-Job.methods.alter = function(permission){
+jobSchema.methods.alter = function(permission){
   this.permission = permission;
 }
 
-Job.methods.rename = function(name){
+jobSchema.methods.rename = function(name){
   this.name = name;
 }
 
-Job.methods.delete = function(id){
+jobSchema.methods.delete = function(id){
   Job.remove({id:{$eq: id}}).exec();
 }
 
+
+var Job = mongoose.model('Job', jobSchema);
 
 // make this available to our users in our Node applications
 module.exports = Job;

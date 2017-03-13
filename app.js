@@ -28,7 +28,7 @@ var jobeditor = require('./controllers/user_ui/jobeditor');
 var suiteviz = require('./controllers/user_ui/suiteviz');
 
 
-var FirstDomain = require('./models/job_dsigner_schema');
+var FirstDomain = require('./models/domain');
 var dom = FirstDomain.Domain();
 dom.name = 'first domain';
 dom.dns_name = 'sdljf';
@@ -42,7 +42,7 @@ dom.save(function(err) {
     }
 });
 
-var FirstDomain2 = require('./models/job_dsigner_schema');
+var FirstDomain2 = require('./models/domain');
 var dom2 = FirstDomain2.Domain();
 dom2.name = 'second domain';
 dom2.dns_name = 'sdlxcvzxvcjf';

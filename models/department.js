@@ -19,7 +19,7 @@
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var Project = require('project');
+var Project = require('./project');
 
 var departmentSchema = new Schema({
   name: String,

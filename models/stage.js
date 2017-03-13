@@ -19,7 +19,7 @@
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var Job = require('Job');
+var Job = require('./job');
 
 // stage is a step for defining a conceptually distinct subset of the entire Pipeline,
 // for example: "Build", "Test", and "Deploy"
@@ -34,25 +34,21 @@ var stageSchema = new Schema({
 },  { timestamps: { createdAt: 'created_at' } });
 
 
-var Stage = mongoose.model('Stage', stageSchema);
 
-Stage.methods.create = function(name, permission){
-  this.name = name;
-  this.permission = permission;
-}
 
-Stage.methods.rename = function(name){
+
+stageSchema.methods.rename = function(name){
   this.name = name;
 }
 
-Stage.methods.change_color = function(name){
+stageSchema.methods.change_color = function(name){
   this.name = name;
 }
 
-Stage.methods.delete = function(id){
+stageSchema.methods.delete = function(id){
   Stage.remove({id:{$eq: id}}).exec();
 }
 
-
+var Stage = mongoose.model('Stage', stageSchema);
 // make this available to our users in our Node applications
 module.exports = Stage;

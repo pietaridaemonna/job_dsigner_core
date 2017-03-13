@@ -51,9 +51,8 @@ var domainSchema = new Schema({
 });
 
 
-var Domain = mongoose.model('Domain', domainSchema);
 
-Domain.methods.find_domain_by_dns = function (_dns_name) {
+domainSchema.methods.find_domain_by_dns = function (_dns_name) {
     //Domain.find({ dns_name: dns_name }).where('created_at').gt(monthAgo).exec(function(err, users) {
     Domain.find({
         dns_name: _dns_name
@@ -62,5 +61,29 @@ Domain.methods.find_domain_by_dns = function (_dns_name) {
     });
 }
 
+domainSchema.methods.find_dom = function () {
+    //Find one blog post by this
+    Domain.findOne({
+        name: "Yash Kumar"
+    }, {
+        organization: {
+            $elemMatch: {
+                body: "hey"
+            }
+        }
+    }, function (err, doc) {
+        if (err) {
+            console.error(err.stack);
+            process.exit(1);
+        } else {
+            console.log(doc);
+            process.exit(0);
+        }
+    });
+}
+
+mongoose.connect('mongodb://127.0.0.1:27017/job_dsigner_db');
+
+var Domain = mongoose.model('Domain', domainSchema);
 // make this available to our users in our Node applications
 module.exports = Domain;

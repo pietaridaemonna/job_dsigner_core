@@ -37,28 +37,25 @@ var taskSchema = new Schema({
             'POWERSHELL'
         ]
     },
-    command: String
+    command: String,
+    run_number: Number
 },  { timestamps: { createdAt: 'created_at' } });
 
-var Task = mongoose.model('Task', taskSchema);
 
-Task.methods.create = function(name, permission) {
-    this.name = name;
-    this.permission = permission;
+
+taskSchema.methods.find_task_by_name = function(_name) {
+    // Domain.find({
+    //     name: _name
+    // }).exec(function (err, users) {
+    //     if (err) throw err;
+    // });
 }
 
-Task.methods.alter = function(permission) {
-    this.permission = permission;
-}
-
-Task.methods.rename = function(name) {
-    this.name = name;
-}
-
-Task.methods.delete = function(id) {
+taskSchema.methods.delete = function(id) {
     Task.remove({ id: { $eq: id } }).exec();
 }
 
+var Task = mongoose.model('Task', taskSchema);
 
 // make this available to our users in our Node applications
 module.exports = Task;

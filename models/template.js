@@ -32,22 +32,6 @@ var environmentSchema = new Schema({
 
 var Environment = mongoose.model('Environment', environmentSchema);
 
-Environment.methods.create = function(name, permission) {
-    this.name = name;
-    this.permission = permission;
-}
-
-Environment.methods.add_variable = function(variable, path) {
-    this.permission = permission;
-}
-
-Environment.methods.remove_variable = function(variable) {
-    this.name = name;
-}
-
-Environment.methods.delete = function(id) {
-    Environment.remove({ id: { $eq: id } }).exec();
-}
 
 
 // make this available to our users in our Node applications
