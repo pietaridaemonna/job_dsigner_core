@@ -34,12 +34,14 @@ var taskSchema = new Schema({
             'SOAP',
             'PYTHON',
             'PERL',
-            'POWERSHELL'
+            'POWERSHELL',
+            'MAIL',
+            'CUSTOM'
         ]
     },
     command: String,
     run_number: Number
-},  { timestamps: { createdAt: 'created_at' } });
+}, { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at ' } });
 
 
 
