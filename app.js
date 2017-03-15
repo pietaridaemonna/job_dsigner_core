@@ -26,34 +26,22 @@ var index = require('./controllers/index');
 var dashboard = require('./controllers/admin/dashboard');
 var jobeditor = require('./controllers/user_ui/jobeditor');
 var suiteviz = require('./controllers/user_ui/suiteviz');
+var domain_list = require('./controllers/user_ui/domain_list');
 
 
-// var FirstDomain = require('./models/domain');
-// FirstDomain.name = 'first domain';
-// FirstDomain.dns_name = 'sdljf';
-// FirstDomain.type = 'Business';
+// var FirstDomain2 = require('./models/domain');
+// var dom2 = new FirstDomain2();
+// dom2.name = ' domain sdaasvf4wxYZ22';
+// dom2.dns_name = 'sdlxcvzxvcjfxs';
+// dom2.type = 'Business';
 
-// FirstDomain.save(function(err) {
+// dom2.save(function(err) {
 //     if (err) {
 //         console.log(err);
 //     } else {
-//         console.log('meow2');
+//         console.log('meow222');
 //     }
 // });
-
-var FirstDomain2 = require('./models/domain');
-var dom2 = new FirstDomain2();
-dom2.name = 'second domain';
-dom2.dns_name = 'sdlxcvzxvcjf';
-dom2.type = 'Business';
-
-dom2.save(function(err) {
-    if (err) {
-        console.log(err);
-    } else {
-        console.log('meow222');
-    }
-});
 
 
 
@@ -78,7 +66,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/dashboard', dashboard);
 app.use('/jobeditor', jobeditor);
-//app.use('/suiteviz', suiteviz);
+app.use('/suiteviz', suiteviz);
+app.use('/domain_list', domain_list);
 
 //app.use('/dbx', dbx);
 
