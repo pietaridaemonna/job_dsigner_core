@@ -28,7 +28,7 @@ var jobSchema = new Schema({
   type: String, //EXEC, SSH, POWERSHELL, SQL, LOG, REST
   command: String,
   output: Buffer,
-  tasks: [Task],
+  tasks: [{type: mongoose.Schema.Types.ObjectId,  ref: 'Task'}],
   status: String
 },  { timestamps: { createdAt: 'created_at' } });
 

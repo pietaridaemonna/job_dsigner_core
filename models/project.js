@@ -28,7 +28,7 @@ var projectSchema = new Schema({
         type: String,
         enum: ['Development', 'Current', 'Maintenance']
     },
-    pipelines: [Pipeline]
+    pipelines:  [{type: mongoose.Schema.Types.ObjectId,  ref: 'Pipeline'}],
 },  { timestamps: { createdAt: 'created_at' } });
 
 // projectSchema.pre('save', function(next){

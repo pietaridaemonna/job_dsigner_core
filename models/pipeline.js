@@ -27,10 +27,10 @@ var pipelineSchema = new Schema({
   tags: [String],
   schedule: String,
   status: {
-    type: string,
+    type: String,
     enum: ['NOT_RUNNING', 'IN_PROGRESS', 'PASSED', 'FAILED', 'CANCELLED']
   },
-  stages: [Stage]
+  stages:  [{type: mongoose.Schema.Types.ObjectId,  ref: 'Stage'}],
 },  { timestamps: { createdAt: 'created_at' } });
 
 // pipelineSchema.pre('save', function(next){

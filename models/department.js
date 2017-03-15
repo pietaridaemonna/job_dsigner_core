@@ -26,7 +26,7 @@ var departmentSchema = new Schema({
   description: String,
   created_at: Date,
   updated_at: Date,
-  tasks: [Project]
+  tasks: [{type: mongoose.Schema.Types.ObjectId,  ref: 'Project'}],
 })
 
 

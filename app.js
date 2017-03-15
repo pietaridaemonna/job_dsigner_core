@@ -28,22 +28,21 @@ var jobeditor = require('./controllers/user_ui/jobeditor');
 var suiteviz = require('./controllers/user_ui/suiteviz');
 
 
-var FirstDomain = require('./models/domain');
-var dom = FirstDomain.Domain();
-dom.name = 'first domain';
-dom.dns_name = 'sdljf';
-dom.type = 'Business';
+// var FirstDomain = require('./models/domain');
+// FirstDomain.name = 'first domain';
+// FirstDomain.dns_name = 'sdljf';
+// FirstDomain.type = 'Business';
 
-dom.save(function(err) {
-    if (err) {
-        console.log(err);
-    } else {
-        console.log('meow2');
-    }
-});
+// FirstDomain.save(function(err) {
+//     if (err) {
+//         console.log(err);
+//     } else {
+//         console.log('meow2');
+//     }
+// });
 
 var FirstDomain2 = require('./models/domain');
-var dom2 = FirstDomain2.Domain();
+var dom2 = new FirstDomain2();
 dom2.name = 'second domain';
 dom2.dns_name = 'sdlxcvzxvcjf';
 dom2.type = 'Business';

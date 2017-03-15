@@ -18,7 +18,7 @@
 'use strict'
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var departmnt = require('./department');
+var Departmnt = require('./department');
 
 
 var domainSchema = new Schema({
@@ -47,9 +47,13 @@ var domainSchema = new Schema({
     },
     created_at: Date,
     updated_at: Date,
-    departments: [departmnt]
+    departments:  [{type: mongoose.Schema.Types.ObjectId,  ref: 'Department'}],
 });
 
+domainSchema.methods.save_data = function (_dns_name) {
+    //Domain.find({ dns_name: dns_name }).where('created_at').gt(monthAgo).exec(function(err, users) {
+
+}
 
 
 domainSchema.methods.find_domain_by_dns = function (_dns_name) {

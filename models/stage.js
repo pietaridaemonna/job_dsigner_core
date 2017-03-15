@@ -30,7 +30,7 @@ var stageSchema = new Schema({
   description: String,
   color: String,
   tags: [String],
-  jobs: [Job]
+  jobs: [{type: mongoose.Schema.Types.ObjectId,  ref: 'Jobs'}],
 },  { timestamps: { createdAt: 'created_at' } });
 
 
