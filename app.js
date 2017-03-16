@@ -27,22 +27,8 @@ var dashboard = require('./controllers/admin/dashboard');
 var jobeditor = require('./controllers/user_ui/jobeditor');
 var suiteviz = require('./controllers/user_ui/suiteviz');
 var domain_list = require('./controllers/user_ui/domain_list');
-
-
-// var FirstDomain2 = require('./models/domain');
-// var dom2 = new FirstDomain2();
-// dom2.name = ' domain sdaasvf4wxYZ22';
-// dom2.dns_name = 'sdlxcvzxvcjfxs';
-// dom2.type = 'Business';
-
-// dom2.save(function(err) {
-//     if (err) {
-//         console.log(err);
-//     } else {
-//         console.log('meow222');
-//     }
-// });
-
+var domain_create_form = require('./controllers/user_ui/domain_create_form');
+var domain_add = require('./controllers/job_engine/domain_add');
 
 
 
@@ -68,7 +54,8 @@ app.use('/dashboard', dashboard);
 app.use('/jobeditor', jobeditor);
 app.use('/suiteviz', suiteviz);
 app.use('/domain_list', domain_list);
-
+app.use('/domain_create_form', domain_create_form);
+app.use('/domain_add', domain_add);
 //app.use('/dbx', dbx);
 
 // DB HANDLING .................................................................

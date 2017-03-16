@@ -7,10 +7,13 @@ block content
     .jumbotron
       h1 Available domains
   .container
-    div
       each d in domains
-        p= d.name + ". [" + d.type + "]"
-
+        a(href='/domain_info/'+ d.name) #{d.name}
+        div(style="float: right;")
+          a(href='/domain_list/delete') [Delete]
+        br
+  .container
+    a(href="/domain_create_form"): button.btn.btn-default(type="button") Add NEW domain
 
 
 

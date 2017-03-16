@@ -27,13 +27,12 @@ var domainSchema = new Schema({
         required: true,
         unique: true
     },
-    organization: String,
     dns_name: String,
     itin: String, //international tax identifier number - NOT NUMBER as some countries doesn't have itin and can use completely different ID
     description: String,
     type: {
         type: String,
-        enum: ['Business', 'Government', 'Non-profit', 'Personal', ]
+        enum: ['Business', 'Government', 'Non-profit', 'Personal' ]
     },
     location: {
         address: {
@@ -50,41 +49,41 @@ var domainSchema = new Schema({
     departments:  [{type: mongoose.Schema.Types.ObjectId,  ref: 'Department'}],
 });
 
-domainSchema.methods.save_data = function (_dns_name) {
-    //Domain.find({ dns_name: dns_name }).where('created_at').gt(monthAgo).exec(function(err, users) {
+// domainSchema.methods.save_data = function (_dns_name) {
+//     //Domain.find({ dns_name: dns_name }).where('created_at').gt(monthAgo).exec(function(err, users) {
 
-}
+// }
 
 
-domainSchema.methods.find_domain_by_dns = function (_dns_name) {
-    console.log('SEARCHING BY NAME')
-    Domain.find({
-        dns_name: _dns_name
-    }).exec(function (err, users) {
-        if (err) throw err;
-    });
-}
+// domainSchema.methods.find_domain_by_dns = function (_dns_name) {
+//     console.log('SEARCHING BY NAME')
+//     Domain.find({
+//         dns_name: _dns_name
+//     }).exec(function (err, users) {
+//         if (err) throw err;
+//     });
+// }
 
-domainSchema.methods.find_dom = function () {
-    //Find one blog post by this
-    Domain.findOne({
-        name: "Yash Kumar"
-    }, {
-        organization: {
-            $elemMatch: {
-                body: "hey"
-            }
-        }
-    }, function (err, doc) {
-        if (err) {
-            console.error(err.stack);
-            process.exit(1);
-        } else {
-            console.log(doc);
-            process.exit(0);
-        }
-    });
-}
+// domainSchema.methods.find_dom = function () {
+//     //Find one blog post by this
+//     Domain.findOne({
+//         name: "Yash Kumar"
+//     }, {
+//         organization: {
+//             $elemMatch: {
+//                 body: "hey"
+//             }
+//         }
+//     }, function (err, doc) {
+//         if (err) {
+//             console.error(err.stack);
+//             process.exit(1);
+//         } else {
+//             console.log(doc);
+//             process.exit(0);
+//         }
+//     });
+// }
 
 mongoose.connect('mongodb://127.0.0.1:27017/job_dsigner_db');
 

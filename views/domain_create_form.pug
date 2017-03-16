@@ -10,4 +10,31 @@ block content
   .container
     #bg
   .container
-    span.small Domain Creator
+        form(id="domain_add_form", method='POST' action='/domain_add', data-fv-framework="bootstrap", data-fv-icon-valid="glyphicon glyphicon-ok", data-fv-icon-invalid="glyphicon glyphicon-remove", data-fv-icon-validating="glyphicon glyphicon-refresh")
+          div.form-group.has-error
+            label(for='name') Name:
+            input#name.form-control(type='text', placeholder='first and last' name='name', required, data-fv-notempty-message="The username is required")
+          div.form-group.has-error
+            label(for='email') Type:
+            select#type.form-control(name='domain_type')
+              option(value="domain") Business
+              option(value="test") Government
+              option(value="random") Non-profit
+              option(value="databases") Personal
+          div.form-group.has-error
+            label(for='favoriteBook') DNS:
+            input#dns_name.form-control(type='text', placeholder='qualified domain name' name='dns')
+          div.form-group.has-error
+            label(for='favoriteBook') ITIN:
+            input#favoriteBook.form-control(type='text', placeholder='(international tax identifier number)' name='itin')
+          div.form-group.has-error
+            label(for='favoriteBook') DNS:
+            input#favoriteBook.form-control(type='text', placeholder='title of book' name='favoriteBook')
+          div.form-group.has-error
+            label(for='pw') Description:
+            input#pw.form-control(type='password' name='password')
+          div.form-group.has-error
+            label(for='pw2') Confirm Password:
+            input#pw2.form-control(type='password' name='confirmPassword')
+          button.btn.btn-primary(type='submit') Sign up
+
