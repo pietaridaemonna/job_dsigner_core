@@ -57,7 +57,7 @@ domainSchema.methods.save_data = function (_dns_name) {
 
 
 domainSchema.methods.find_domain_by_dns = function (_dns_name) {
-    //Domain.find({ dns_name: dns_name }).where('created_at').gt(monthAgo).exec(function(err, users) {
+    console.log('SEARCHING BY NAME')
     Domain.find({
         dns_name: _dns_name
     }).exec(function (err, users) {

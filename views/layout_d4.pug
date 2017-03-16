@@ -18,8 +18,6 @@ head
     script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')
     script(src='/js/d3.v3.min.js')
     script(type='text/javascript').
-      var suite_viz_json = !{suitelist};
-      var suite_id = "!{suite_id}";
       var utc = new Date().toJSON().slice(0,10).replace(/-/g,'/');
 
 mixin displayLink(templateName, isImplemented)

@@ -1,8 +1,15 @@
 extends layout_d4
 
 block content
+  script(type='text/javascript').
+    var domains = #{domains};
   .container
-    p bla
+    .jumbotron
+      h1 Available domains
+  .container
+    div
+      each d in domains
+        p= d.name + ". [" + d.type + "]"
 
 
 

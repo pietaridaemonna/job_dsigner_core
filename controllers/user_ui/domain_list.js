@@ -17,25 +17,16 @@
 
 var express = require('express');
 var router = express.Router();
+var Domain = require('../../models/domain');
 
+router.get('/', function (req, res, next) {
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('domain_list');
-});
+  Domain.find({}, 'name type', function (err, doms) {
+    res.render('domain_list', {
+      domains: doms
+    });
+  });
 
-router.get('/', function(req, res, next) {
-  var domains = [
-  {source: "Win 10", target: "CISCO", type: "licensing"},
-  {source: suite_id+'NGG', target: "CISCO", type: "resolved"},
-  {source: "H3C", target: "SGI", type: "suit"},
-  {source: "Asterisk", target: "SGI", type: "suit"},
-  {source: "SGI", target: "RedHat 7.3", type: "resolved"},
-  {source: "RedHat 7.3", target: suite_id, type: "suit"},
-  {source: "RedHat 7.3", target: "SGI", type: "suit"},
-  {source: suite_id, target: "CISCO", type: "suit"}
-  ];
-  res.render('suiteviz', {domains: JSON.stringify(domains),suite_id: suite_id});
 });
 
 module.exports = router;
