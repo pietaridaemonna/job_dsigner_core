@@ -19,6 +19,8 @@ var express = require('express');
 var router = express.Router();
 var Domain = require('../../models/domain');
 
+
+
 router.get('/', function (req, res, next) {
 
     console.log('TRYING TO ADD  %s added', req.params.name);
@@ -28,6 +30,7 @@ router.get('/', function (req, res, next) {
     dom.dns_name = req.params.dns_name;
     dom.type = req.params.type;
 
+//save data
     dom.save(function (err) {
         if (err) {
             console.log(err);
