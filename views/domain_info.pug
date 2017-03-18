@@ -1,0 +1,29 @@
+extends layout
+
+block content
+  script(type='text/javascript').
+    var domains = #{domains};
+  .container
+    .jumbotron
+      h1 Domain #{domain_name} info
+  .container
+      each d in domains
+        p
+        | name: #{d.name}
+        p
+        | type: #{d.type}
+        p
+        | fqdn: #{d.fqdn}
+        p
+        | description: #{d.description}
+        p
+        | itin: #{d.itin}
+        br
+  .container
+    a(href="/domain_list"): button.btn.btn-default(type="button") Continue
+
+
+
+
+       
+    

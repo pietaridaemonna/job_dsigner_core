@@ -29,6 +29,7 @@ var suiteviz = require('./controllers/user_ui/suiteviz');
 var domain_list = require('./controllers/user_ui/domain_list');
 var domain_create_form = require('./controllers/user_ui/domain_create_form');
 var domain_add = require('./controllers/job_engine/domain_add');
+var domain_info = require('./controllers/user_ui/domain_info');
 
 
 
@@ -53,6 +54,7 @@ app.use('/suiteviz', suiteviz);
 app.use('/domain_list', domain_list);
 app.use('/domain_create_form', domain_create_form);
 app.use('/domain_add', domain_add);
+app.use('/domain_info', domain_info);
 
 
 // ERROR HANDLING ..............................................................
