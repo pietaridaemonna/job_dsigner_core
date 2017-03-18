@@ -1,7 +1,6 @@
 extends layout
 
 block content
-block content
   .container
     .jumbotron
         h1 DOMAIN Creator
@@ -10,31 +9,28 @@ block content
   .container
     #bg
   .container
-        form(id="domain_add_form", method='POST' action='/domain_add', data-fv-framework="bootstrap", data-fv-icon-valid="glyphicon glyphicon-ok", data-fv-icon-invalid="glyphicon glyphicon-remove", data-fv-icon-validating="glyphicon glyphicon-refresh")
-          div.form-group.has-error
+        form(id="domain_add_form", method='POST' action='/domain_add/')
+          div.form-group
             label(for='name') Name:
-            input#name.form-control(type='text', placeholder='first and last' name='name', required, data-fv-notempty-message="The username is required")
-          div.form-group.has-error
-            label(for='email') Type:
+            input#name.form-control(type='text', placeholder='domain name' name='domain_name')
+          div.form-group
+            label(for='domain_type') Type:
             select#type.form-control(name='domain_type')
-              option(value="domain") Business
-              option(value="test") Government
-              option(value="random") Non-profit
-              option(value="databases") Personal
-          div.form-group.has-error
-            label(for='favoriteBook') DNS:
-            input#dns_name.form-control(type='text', placeholder='qualified domain name' name='dns')
-          div.form-group.has-error
+              option(value="Business") Business
+              option(value="Government") Government
+              option(value="Non-profit") Non-profit
+              option(value="Personal") Personal
+          div.form-group
+            label(for='FQDN') DNS:
+            input#dns_name.form-control(type='text', placeholder='qualified domain name' name='fqdn')
+          div.form-group
             label(for='favoriteBook') ITIN:
             input#favoriteBook.form-control(type='text', placeholder='(international tax identifier number)' name='itin')
-          div.form-group.has-error
-            label(for='favoriteBook') DNS:
-            input#favoriteBook.form-control(type='text', placeholder='title of book' name='favoriteBook')
-          div.form-group.has-error
-            label(for='pw') Description:
-            input#pw.form-control(type='password' name='password')
-          div.form-group.has-error
-            label(for='pw2') Confirm Password:
-            input#pw2.form-control(type='password' name='confirmPassword')
-          button.btn.btn-primary(type='submit') Sign up
+          div.form-group
+            label(for='Description') Description:
+            input#favoriteBook.form-control(type='text', placeholder='Description' name='description')
+          div.form-group
+            label(for='Location') location:
+            input#pw.form-control(type='text' name='location')
+          button.btn.btn-primary(type='submit') Save
 

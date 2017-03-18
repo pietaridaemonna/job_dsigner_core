@@ -21,17 +21,27 @@ var Domain = require('../../models/domain');
 
 
 
-router.get('/', function (req, res, next) {
+router.get('/', function(req, res, next) {
 
-    console.log('TRYING TO ADD  %s added', req.params.name);
+    console.log('GET REQUEST ON DOMAIN_ADD!!!'); //, req.params.name);
+
+    res.render('domain_add');
+
+});
+
+router.post('/', function(req, res, next) {
+
+    console.log('TRYING TO ADD  %s added'); //, req.params.name);
 
     var dom = new Domain();
-    dom.name = req.body.domain.name;
-    dom.dns_name = req.params.dns_name;
-    dom.type = req.params.type;
+    dom.name = req.body.domain_name;
+    dom.fqdn = req.body.fqdn;
+    dom.type = req.body.domain_type;
+    dom.itin = req.body.itin;
+    dom.description = req.body.description;
 
-//save data
-    dom.save(function (err) {
+    //save data
+    dom.save(function(err) {
         if (err) {
             console.log(err);
         } else {

@@ -35,3 +35,6 @@ fi
 #sed -n -e '/PRETTY_NAME/ s/^.*=\|"\| .*//gp' /etc/os-release
 
 echo "FOUND ${DISTRO}..............."
+
+
+"C:\Program Files\MongoDB\Server\3.4\bin\mongod.exe" --dbpath 

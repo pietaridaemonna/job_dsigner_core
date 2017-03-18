@@ -32,9 +32,6 @@ var domain_add = require('./controllers/job_engine/domain_add');
 
 
 
-////var dbx = require('./db_objects/db_schema');
-
-
 var app = express();
 
 // view engine setup
@@ -56,11 +53,6 @@ app.use('/suiteviz', suiteviz);
 app.use('/domain_list', domain_list);
 app.use('/domain_create_form', domain_create_form);
 app.use('/domain_add', domain_add);
-//app.use('/dbx', dbx);
-
-// DB HANDLING .................................................................
-
-
 
 
 // ERROR HANDLING ..............................................................
