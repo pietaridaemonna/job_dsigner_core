@@ -1,6 +1,8 @@
 # job_dsigner core
 job runner, continuous integration
 
+## UNDER HEAVY DEVELOPMENT STILL MISSING CORE FEATURES
+
 ## Main features
 
 - Run CLI (Powershell, Bash..)
