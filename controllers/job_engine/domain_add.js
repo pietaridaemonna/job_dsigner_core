@@ -49,7 +49,7 @@ router.post('/', function(req, res, next) {
         }
     });
 
-    res.render('domain_add');
+    res.render('domain_add', { dom: req.body.domain_name });
 
 });
 
