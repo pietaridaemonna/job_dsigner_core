@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  script(type='text/javascript').
+    var departments = #{departments};
+  .container
+    .jumbotron
+      h1 Department #{dpt} was added for #{dom}
+  .container
+  .container
+    a(href="/department_list"): button.btn.btn-default(type="button") Continue
+
+
+
+
+       
+    

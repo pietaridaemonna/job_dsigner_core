@@ -26,10 +26,16 @@ var index = require('./controllers/index');
 var dashboard = require('./controllers/admin/dashboard');
 var jobeditor = require('./controllers/user_ui/jobeditor');
 var suiteviz = require('./controllers/user_ui/suiteviz');
+
 var domain_list = require('./controllers/user_ui/domain_list');
 var domain_create_form = require('./controllers/user_ui/domain_create_form');
 var domain_add = require('./controllers/job_engine/domain_add');
 var domain_info = require('./controllers/user_ui/domain_info');
+
+var department_create_form = require('./controllers/user_ui/department_create_form');
+var department_list = require('./controllers/user_ui/department_list');
+var department_add = require('./controllers/job_engine/department_add');
+var department_info = require('./controllers/user_ui/department_info');
 
 
 
@@ -51,10 +57,16 @@ app.use('/', index);
 app.use('/dashboard', dashboard);
 app.use('/jobeditor', jobeditor);
 app.use('/suiteviz', suiteviz);
+
 app.use('/domain_list', domain_list);
 app.use('/domain_create_form', domain_create_form);
 app.use('/domain_add', domain_add);
 app.use('/domain_info', domain_info);
+
+app.use('/department_create_form', department_create_form);
+app.use('/department_list', department_list);
+app.use('/department_add', department_add);
+app.use('/department_info', department_info);
 
 
 // ERROR HANDLING ..............................................................

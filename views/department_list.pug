@@ -1,0 +1,22 @@
+extends layout_d4
+
+block content
+  script(type='text/javascript').
+    var departments = #{departments};
+  .container
+    .jumbotron
+      h1 Available departments
+  .container
+      each d in departments
+        a(href='/department_info/'+ d.name) #{d.name}
+        div(style="float: right;")
+          a(href='/department_list/delete') [Delete]
+        br
+  .container
+    a(href="/department_create_form"): button.btn.btn-default(type="button") Add NEW department
+
+
+
+
+       
+    

@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  script(type='text/javascript').
+    var departments = #{departments};
+  .container
+    .jumbotron
+      h1 Dept #{department_name} info
+  .container
+      each d in departments
+        p
+        | name: #{d.name}
+        p
+        | description: #{d.description}
+        br
+  .container
+    a(href="/department_list"): button.btn.btn-default(type="button") Continue
+
+
+
+
+       
+    
