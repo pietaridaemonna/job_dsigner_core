@@ -33,26 +33,32 @@ router.get('/', function (req, res, next) {
 router.post('/', function (req, res, next) {
 
     var domain_name = req.body.domain_name;
+    console.log("DOM: %s", domain_name);
 
     var dpt = new Department();
-    dpt.domain_name = req.body.department_name;
+    dpt.name = req.body.department_name;
+    console.log("Dept name: %s", dpt.name);
     dpt.description = req.body.description;
+    console.log("description: %s", dpt.description);
 
 
+    Domain.findOne({
+        "name": domain_name
+    }, function (err, dom) {
 
-    Domain.update({
-        name: domain_name
-    }, {
-        departments: dpt
-    }, function (err, numberAffected, rawResponse) {
-        res.render('department_add', {
-            dpt: req.body.department_name,
-            dom: domain_name
+        dom.departments = dpt;
+
+        dom.save(function (err) {
+            console.log(dom);
+            //mongoose.disconnect();
         });
-    })
+    });
 
 
-
+    res.render('department_add', {
+        dpt: req.body.department_name,
+        dom: domain_name
+    });
 
 });
 

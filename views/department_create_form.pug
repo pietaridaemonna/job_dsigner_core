@@ -15,7 +15,7 @@ block content
             label(for='domain_name') Type:
             select#type.form-control(name='domain_name')
               each d in domains
-                option(value="#{d.name}") #{d.name}
+                option(value=d.name) #{d.name}
           div.form-group
             label(for='Description') Description:
             input#favoriteBook.form-control(type='text', placeholder='Description' name='description')

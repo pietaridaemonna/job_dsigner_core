@@ -46,7 +46,7 @@ var domainSchema = new Schema({
     },
     created_at: Date,
     updated_at: Date,
-    departments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Department' }],
+    departments: [{ type: mongoose.Schema.Types.Object, ref: 'Department' }],
 });
 
 

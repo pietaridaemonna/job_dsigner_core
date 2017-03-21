@@ -31,8 +31,6 @@ router.get('/', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
 
-    console.log('TRYING TO ADD  %s added'); //, req.params.name);
-
     var dom = new Domain();
     dom.name = req.body.domain_name;
     dom.fqdn = req.body.fqdn;
