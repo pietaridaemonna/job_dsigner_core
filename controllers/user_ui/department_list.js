@@ -21,7 +21,8 @@ var Department = require('../../models/department');
 
 router.get('/', function (req, res, next) {
 
-  Department.find({}, 'name type', function (err, dpts) {
+  Department.find({}, 'name', function (err, dpts) {
+    console.log("DPTS: %s", dpts);
     res.render('department_list', {
       departments: dpts
     });

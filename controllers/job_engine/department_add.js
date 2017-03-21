@@ -46,7 +46,7 @@ router.post('/', function (req, res, next) {
         "name": domain_name
     }, function (err, dom) {
 
-        dom.departments = dpt;
+        dom.departments.push({"name": dpt.name, "description": dpt.description, "tasks": []});
 
         dom.save(function (err) {
             console.log(dom);
