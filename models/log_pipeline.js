@@ -16,21 +16,30 @@
 //     ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 
 'use strict'
-
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var Project = require('./project');
-
-var departmentSchema = new Schema({
-  name: String,
-  description: String,
-  created_at: Date,
-  updated_at: Date,
-  projects: [{type: mongoose.Schema.Types.ObjectId,  ref: 'Project'}]
-}, {_id: false})
+var Departmnt = require('./department');
 
 
-var Department = mongoose.model('Department', departmentSchema);
+var pipelineLogSchema = new Schema({
+    name: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    itin: String, //international tax identifier number - NOT NUMBER as some countries doesn't have itin and can use completely different ID
+    description: String,
+    type: {
+        type: String,
+        enum: ['Business', 'Government', 'Non-profit', 'Personal']
+    },
+    created_at: Date,
+    updated_at: Date
+});
 
+
+mongoose.connect('mongodb://127.0.0.1:27017/job_dsigner_pipeline_log');
+
+var pipelineLog = mongoose.model('pipelineLog', pipelineLogSchema);
 // make this available to our users in our Node applications
-module.exports = Department;
+module.exports = Domain;

@@ -15,22 +15,64 @@
 //     FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 //     ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 
-'use strict'
-
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var Project = require('./project');
-
-var departmentSchema = new Schema({
-  name: String,
-  description: String,
-  created_at: Date,
-  updated_at: Date,
-  projects: [{type: mongoose.Schema.Types.ObjectId,  ref: 'Project'}]
-}, {_id: false})
+var express = require('express');
+var router = express.Router();
+var Department = require('../../models/department');
+var Project = require('../../models/project');
 
 
-var Department = mongoose.model('Department', departmentSchema);
 
-// make this available to our users in our Node applications
-module.exports = Department;
+router.get('/', function (req, res, next) {
+
+    console.log('GET REQUEST ON DEPT_ADD!!!'); //, req.params.name);
+
+    res.render('department_add');
+
+});
+
+router.post('/', function (req, res, next) {
+
+    var domain_name = req.body.domain_name;
+    console.log("DOM: %s", domain_name);
+
+    var prj = new Project();
+    prj.name = req.body.department_name;
+    console.log("Dept name: %s", prj.name);
+    prj.description = req.body.description;
+    console.log("description: %s",prj.description);
+
+
+    Department.findOne({
+        "name": domain_name
+    }, function (err, dep) {
+
+        dep.projects.push({"name": prj.name, "description": prj.description, "pipelines": []});
+
+        dom.save(function (err) {
+            console.log(dom);
+            //mongoose.disconnect();
+        });
+    });
+
+
+    res.render('department_add', {
+        dpt: req.body.department_name,
+        dom: domain_name
+    });
+
+});
+
+module.exports = router;
+
+
+
+
+
+
+
+
+
+
+
+
+//var replaced = str.split(' ').join('+');
