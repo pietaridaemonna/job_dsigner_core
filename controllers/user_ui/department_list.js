@@ -21,16 +21,23 @@ var Domain = require('../../models/domain')
 var Department = require('../../models/department')
 
 router.get('/', function(req, res, next) {
-    Domain.find({ name: 'HPE' }, 'departments', function(err, dom) {
+    Domain.find({ name: 'HPE' }, function(err, dom) {
         console.log('dom: %s', dom)
-        var dpts = dom.departments;
+
+        // var jsonData = JSON.parse(dom)
+        // console.log('jsonData: %s', jsonData)
+        // for (var i = 0; i < jsonData.departments.length; i++) {
+        //     var dep = jsonData.departments[i]
+        //     console.log(dep.name)
+        // }        //  ?????????????????????
+
+        // var dpts = dom.departments
 
         console.log('deps: %s', dpts)
 
         res.render('department_list', {
             departments: dpts
         })
-
     })
 })
 
