@@ -15,28 +15,44 @@
 //     FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 //     ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 
-'use strict'
-
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var Pipeline = require('./pipeline');
-
-var projectSchema = new Schema({
-    name: String,
-    description: String,
-    type: {
-        type: String,
-        enum: ['Development', 'Current', 'Maintenance']
-    },
-    pipelines:  [{type: mongoose.Schema.Types.ObjectId,  ref: 'Pipeline'}],
-},  { timestamps: { createdAt: 'created_at' } });
+var express = require('express');
+var router = express.Router();
+var Department = require('../../models/department');
 
 
-projectSchema.methods.delete = function(id) {
-    Stage.remove({ id: { $eq: id } }).exec();
-}
 
-var Project = mongoose.model('Project', projectSchema);
+router.get('/:project_name', function(req, res, next) {
 
-// make this available to our users in our Node applications
-module.exports = Project;
+    console.log('GET REQUEST ON PROJ_INFO!!!'); //, req.params.name);
+    var name = req.params.department_name;
+    Department.find({ name }, 'name type description', function(err, dpts) {
+        res.render('project_info', {
+            department_name: name,
+            departments: dpts
+        });
+    });
+
+});
+
+router.post('/', function(req, res, next) {
+
+    console.log('GET REQUEST ON DEPT_INFO!!!'); //, req.params.name);
+
+    res.render('project_info', { dom: 'Request POST forbidden' });
+
+});
+
+module.exports = router;
+
+
+
+
+
+
+
+
+
+
+
+
+//var replaced = str.split(' ').join('+');

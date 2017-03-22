@@ -1,0 +1,34 @@
+extends layout
+
+block content
+  .container
+    .jumbotron
+        h1 Project Creator
+  .container
+    #bg
+  .container
+        form(id="project_add_form", method='POST' action='/project_add/')
+          div.form-group
+            label(for='name') Name:
+            input#name.form-control(type='text', placeholder='project name' name='project_name')
+          div.form-group
+            label(for='domain_name') Type:
+            select#type.form-control(name='domain_name')
+              each d in domains
+                option(value=d.name) #{d.name}
+          div.form-group
+            label(for='department_name') Type:
+            select#type.form-control(name='department_name')
+              each e in departments
+                option(value=e.name) #{e.name}
+          div.form-group
+            label(for='project_type') Type:
+            select#type.form-control(name='project_type')
+                option(value="Development") Development
+                option(value="Current") Current
+                option(value="Maintenance") Maintenance
+          div.form-group
+            label(for='Description') Description:
+            input#favoriteBook.form-control(type='text', placeholder='Description' name='description')
+          button.btn.btn-primary(type='submit') Save
+

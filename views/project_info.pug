@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  script(type='text/javascript').
+    var projects = #{projects};
+  .container
+    .jumbotron
+      h1 Project #{department_name} info
+  .container
+      each d in projects
+        p
+        | name: #{d.name}
+        p
+        | description: #{d.description}
+        br
+  .container
+    a(href="/department_list"): button.btn.btn-default(type="button") Continue
+
+
+
+
+       
+    

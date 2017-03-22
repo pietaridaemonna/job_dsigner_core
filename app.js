@@ -29,14 +29,18 @@ var jobeditor = require('./controllers/user_ui/jobeditor');
 
 var domain_list = require('./controllers/user_ui/domain_list');
 var domain_create_form = require('./controllers/user_ui/domain_create_form');
-var domain_add = require('./controllers/job_engine/domain_add');
+var domain_add = require('./controllers/user_ui/domain_add');
 var domain_info = require('./controllers/user_ui/domain_info');
 
 var department_create_form = require('./controllers/user_ui/department_create_form');
 var department_list = require('./controllers/user_ui/department_list');
-var department_add = require('./controllers/job_engine/department_add');
+var department_add = require('./controllers/user_ui/department_add');
 var department_info = require('./controllers/user_ui/department_info');
 
+var project_create_form = require('./controllers/user_ui/project_create_form');
+var project_list = require('./controllers/user_ui/project_list');
+var project_info = require('./controllers/user_ui/project_info');
+var project_add = require('./controllers/user_ui/project_add');
 
 
 var app = express();
@@ -67,6 +71,11 @@ app.use('/department_create_form', department_create_form);
 app.use('/department_list', department_list);
 app.use('/department_add', department_add);
 app.use('/department_info', department_info);
+
+app.use('/project_create_form', project_create_form);
+app.use('/project_info', project_info);
+app.use('/project_list', project_list);
+app.use('/project_add', project_add);
 
 
 // ERROR HANDLING ..............................................................

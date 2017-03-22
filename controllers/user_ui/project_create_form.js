@@ -15,28 +15,24 @@
 //     FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 //     ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 
-'use strict'
+var express = require('express');
+var router = express.Router();
+var Domain = require('../../models/domain');
+var Department = require('../../models/department');
 
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var Pipeline = require('./pipeline');
+/* GET home page. */
+router.get('/', function (req, res, next) {
 
-var projectSchema = new Schema({
-    name: String,
-    description: String,
-    type: {
-        type: String,
-        enum: ['Development', 'Current', 'Maintenance']
-    },
-    pipelines:  [{type: mongoose.Schema.Types.ObjectId,  ref: 'Pipeline'}],
-},  { timestamps: { createdAt: 'created_at' } });
+  Domain.find({}, 'name type', function (err, doms) {
 
+    doms.departments.find({}, 'name', function (err, depts) {
+      res.render('project_create_form', {
+        domains: doms,
+        departments: depts
+      });
+    });
+  });
+  //res.render('department_create_form');
+});
 
-projectSchema.methods.delete = function(id) {
-    Stage.remove({ id: { $eq: id } }).exec();
-}
-
-var Project = mongoose.model('Project', projectSchema);
-
-// make this available to our users in our Node applications
-module.exports = Project;
+module.exports = router;

@@ -35,28 +35,41 @@ router.post('/', function (req, res, next) {
     var domain_name = req.body.domain_name;
     console.log("DOM: %s", domain_name);
 
-    var prj = new Project();
-    prj.name = req.body.department_name;
-    console.log("Dept name: %s", prj.name);
+    var prj = new Department();
+    prj.name = req.body.project_name;
+    console.log("proj name: %s", prj.name);
     prj.description = req.body.description;
-    console.log("description: %s",prj.description);
+    console.log("description: %s", prj.description);
+    prj.type = req.body.project_type;
+    console.log("description: %s", prj.type);
 
 
-    Department.findOne({
+    Domain.findOne({
         "name": domain_name
-    }, function (err, dep) {
+    }, function (err, dom) {
 
-        dep.projects.push({"name": prj.name, "description": prj.description, "pipelines": []});
+        dom.departments.findOne({
+            department_name
+        }, function (err, prj) {
 
-        dom.save(function (err) {
-            console.log(dom);
-            //mongoose.disconnect();
+            prj.projects.push({
+                "name": prj.name,
+                "description": prj.description,
+                "pipelines": []
+            });
+
+            prj.save(function (err) {
+                //console.log(dom);
+                //mongoose.disconnect();
+            });
+
         });
+
     });
 
 
     res.render('department_add', {
-        dpt: req.body.department_name,
+        prj: req.body.department_name,
         dom: domain_name
     });
 

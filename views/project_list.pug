@@ -1,0 +1,22 @@
+extends layout_d4
+
+block content
+  script(type='text/javascript').
+    var projects = #{projects};
+  .container
+    .jumbotron
+      h1 Available projects
+  .container
+      each d in projects
+        a(href='/department_info/'+ d.name) #{d.name}
+        div(style="float: right;")
+          a(href='/department_list/delete') [Delete]
+        br
+  .container
+    a(href="/project_create_form"): button.btn.btn-default(type="button") Add NEW project
+
+
+
+
+       
+    
