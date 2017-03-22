@@ -22,7 +22,7 @@ var Domain = require('../../models/domain');
 
 
 
-router.get('/', function (req, res, next) {
+router.get('/', function(req, res, next) {
 
     console.log('GET REQUEST ON DEPT_ADD!!!'); //, req.params.name);
 
@@ -30,7 +30,7 @@ router.get('/', function (req, res, next) {
 
 });
 
-router.post('/', function (req, res, next) {
+router.post('/', function(req, res, next) {
 
     var domain_name = req.body.domain_name;
     console.log("DOM: %s", domain_name);
@@ -44,13 +44,10 @@ router.post('/', function (req, res, next) {
 
     Domain.findOne({
         "name": domain_name
-    }, function (err, dom) {
-
-        dom.departments.push({"name": dpt.name, "description": dpt.description, "projects": []});
-
-        dom.save(function (err) {
-            console.log(dom);
-            //mongoose.disconnect();
+    }, function(err, dom) {
+        dom.departments.push({ "name": dpt.name, "description": dpt.description, "projects": [] });
+        dom.save(function(err) {
+            console.log('department %s saved', dpt.name);
         });
     });
 

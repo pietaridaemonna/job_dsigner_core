@@ -19,13 +19,14 @@ var express = require('express');
 var router = express.Router();
 var Domain = require('../../models/domain');
 
-router.get('/', function (req, res, next) {
+router.get('/', function(req, res, next) {
 
-  Domain.find({}, 'name type', function (err, doms) {
-    res.render('domain_list', {
-      domains: doms
+    Domain.find({}, 'name type', function(err, doms) {
+        console.log('doms: ', doms);
+        res.render('domain_list', {
+            domains: doms
+        });
     });
-  });
 
 });
 

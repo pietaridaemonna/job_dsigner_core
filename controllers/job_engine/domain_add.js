@@ -23,34 +23,47 @@ var Domain = require('../../models/domain');
 
 router.get('/', function(req, res, next) {
 
-    console.log('GET request ON PROJ_ADD!!!');
+    console.log('GET request ON DOMAIN_ADD!!!'); //, req.params.name);
 
-    res.render('project_add');
+    res.render('domain_add');
 
 });
 
 router.post('/', function(req, res, next) {
 
-    console.log('TRYING TO ADD added');
+    console.log('TRYING TO ADD  %s added'); //, req.params.name);
 
-    // var dom = new Domain();
-    // dom.name = req.body.domain_name;
-    // dom.fqdn = req.body.fqdn;
-    // dom.type = req.body.domain_type;
-    // dom.itin = req.body.itin;
-    // dom.description = req.body.description;
+    var dom = new Domain();
+    dom.name = req.body.domain_name;
+    dom.fqdn = req.body.fqdn;
+    dom.type = req.body.domain_type;
+    dom.itin = req.body.itin;
+    dom.description = req.body.description;
 
-    // //save data
-    // dom.save(function(err) {
-    //     if (err) {
-    //         console.log(err);
-    //     } else {
-    //         console.log('Domain %s added', dom.name);
-    //     }
-    // });
+    //save data
+    dom.save(function(err) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log('Domain %s added', dom.name);
+        }
+    });
 
-    res.render('project_add');
+    res.render('domain_add', { dom: req.body.domain_name });
 
 });
 
 module.exports = router;
+
+
+
+
+
+
+
+
+
+
+
+
+//var replaced = str.split(' ').join('+');

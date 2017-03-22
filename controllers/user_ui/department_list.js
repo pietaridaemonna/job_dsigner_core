@@ -15,19 +15,23 @@
 //     FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 //     ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 
-var express = require('express');
-var router = express.Router();
-var Department = require('../../models/department');
+var express = require('express')
+var router = express.Router()
+var Domain = require('../../models/domain')
+var Department = require('../../models/department')
 
-router.get('/', function (req, res, next) {
+router.get('/', function(req, res, next) {
+    Domain.find({ name: 'HPE' }, 'departments', function(err, dom) {
+        console.log('dom: %s', dom)
+        var dpts = dom.departments;
 
-  Department.find({}, 'name', function (err, dpts) {
-    console.log("DPTS: %s", dpts);
-    res.render('department_list', {
-      departments: dpts
-    });
-  });
+        console.log('deps: %s', dpts)
 
-});
+        res.render('department_list', {
+            departments: dpts
+        })
 
-module.exports = router;
+    })
+})
+
+module.exports = router

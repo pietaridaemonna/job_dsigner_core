@@ -2,10 +2,14 @@ extends layout
 
 block content
   script(type='text/javascript').
-    var domains = #{domains};
+    var departments = #{departments};
   .container
     .jumbotron
       h1 Domain #{domain_name} info
+  .container
+    each dep in departments
+      a(href='/department_info/'+ dep.name) #{dep.name}
+      br
   .container
       each d in domains
         p
@@ -16,14 +20,4 @@ block content
         | fqdn: #{d.fqdn}
         p
         | description: #{d.description}
-        p
-        | itin: #{d.itin}
         br
-  .container
-    a(href="/domain_list"): button.btn.btn-default(type="button") Continue
-
-
-
-
-       
-    

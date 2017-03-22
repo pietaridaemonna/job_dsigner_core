@@ -15,44 +15,33 @@
 //     FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 //     ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 
-var express = require('express');
-var router = express.Router();
-var Domain = require('../../models/domain');
-
-
+var express = require('express')
+var router = express.Router()
+var Domain = require('../../models/domain')
 
 router.get('/:domain_name', function(req, res, next) {
 
-    console.log('GET REQUEST ON DOMAIN_INFO!!!'); //, req.params.name);
-    var name = req.params.domain_name;
-    Domain.find({ name }, 'name type description itin fqdn', function(err, doms) {
-        res.render('domain_info', {
-            domain_name: name,
-            domains: doms
-        });
-    });
+    var domain_name = req.params.domain_name
+    Domain.find({ name: domain_name }, function(err, doms) {
+        var domz = doms;
+        Domain.find({ name: domain_name }, 'departments', function(err, deps) {
+            console.log(deps);
 
-});
+            res.render('domain_info', {
+                domain_name: domain_name,
+                domains: domz,
+                departments: deps
+            })
+        })
+    })
+})
 
 router.post('/', function(req, res, next) {
+    console.log('GET REQUEST ON DOMAIN_INFO!!!'); // , req.params.name)
 
-    console.log('GET REQUEST ON DOMAIN_INFO!!!'); //, req.params.name);
+    res.render('domain_info', { dom: 'Request POST forbidden' })
+})
 
-    res.render('domain_info', { dom: 'Request POST forbidden' });
+module.exports = router
 
-});
-
-module.exports = router;
-
-
-
-
-
-
-
-
-
-
-
-
-//var replaced = str.split(' ').join('+');
+// var replaced = str.split(' ').join('+')
