@@ -22,16 +22,19 @@ var Department = require('../../models/department');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
+  console.log('project_create_form GET:');
 
-  Domain.find({}, 'name type', function (err, doms) {
+  //Domain.find({}, 'name', function (err, doms) {
 
-    doms.departments.find({}, 'name', function (err, depts) {
+    Domain.find({name: domain_name, departments: department_name}, 'name', function (err, depts) {
+
       res.render('project_create_form', {
         domains: doms,
         departments: depts
       });
+      
     });
-  });
+  //});
   //res.render('department_create_form');
 });
 
