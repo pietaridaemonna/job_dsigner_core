@@ -25,7 +25,7 @@ var bodyParser = require('body-parser');
 var index = require('./controllers/index');
 var dashboard = require('./controllers/admin/dashboard');
 var jobeditor = require('./controllers/user_ui/jobeditor');
-var suiteviz = require('./controllers/user_ui/suiteviz');
+//var suiteviz = require('./controllers/user_ui/suiteviz');
 
 var domain_list = require('./controllers/user_ui/domain_list');
 var domain_create_form = require('./controllers/user_ui/domain_create_form');
@@ -56,7 +56,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/dashboard', dashboard);
 app.use('/jobeditor', jobeditor);
-app.use('/suiteviz', suiteviz);
+//app.use('/suiteviz', suiteviz);
 
 app.use('/domain_list', domain_list);
 app.use('/domain_create_form', domain_create_form);

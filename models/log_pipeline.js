@@ -42,4 +42,4 @@ mongoose.connect('mongodb://127.0.0.1:27017/job_dsigner_pipeline_log');
 
 var pipelineLog = mongoose.model('pipelineLog', pipelineLogSchema);
 // make this available to our users in our Node applications
-module.exports = Domain;
+module.exports = pipelineLog;
