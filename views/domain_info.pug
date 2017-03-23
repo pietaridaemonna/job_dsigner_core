@@ -16,11 +16,14 @@ block content
         p
         | description: #{deps.description}
         br
+        br
   .container
-    p departments:
+    span(style='font-weight:bold') departments:
+    br
     each dep in deps.departments
       a(href='/department_info/'+ domain_name+'/'+ dep.name) - #{dep.name}
       br
+    br
   .container
     a(href="/department_create_form"): button.btn.btn-default(type="button") Create new department
     br
