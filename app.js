@@ -45,6 +45,15 @@ var project_add = require('./controllers/user_ui/project_add');
 
 var app = express();
 
+app.use( function(req, res, next) {  
+  if(!req.secure) {
+    var secureUrl = "https://" + req.headers['host'] + req.url; 
+    res.writeHead(301, { "Location":  secureUrl });
+    res.end();
+  }
+  next();
+});
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
