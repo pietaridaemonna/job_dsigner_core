@@ -41,24 +41,3 @@ router.get('/', function (req, res, next) {
 })
 
 module.exports = router
-
-
-
-// Domain.find({ name: 'HPE' }, function(err, dom) {
-//     console.log('dom: %s', dom)
-
-//     // var jsonData = JSON.parse(dom)
-//     // console.log('jsonData: %s', jsonData)
-//     // for (var i = 0; i < jsonData.departments.length; i++) {
-//     //     var dep = jsonData.departments[i]
-//     //     console.log(dep.name)
-//     // }        //  ?????????????????????
-
-//     var dpts = dom.departments
-
-//     console.log('deps: %s', dpts)
-
-//     res.render('department_list', {
-//         departments: dpts
-//     })
-// })
