@@ -19,27 +19,35 @@ var express = require('express')
 var router = express.Router()
 var Domain = require('../../models/domain')
 
-router.get('/:domain_name', function(req, res, next) {
+router.get('/:domain_name', function (req, res, next) {
 
     var domain_name = req.params.domain_name
-    Domain.find({ name: domain_name }, function(err, doms) {
-        var domz = doms;
-        Domain.find({ name: domain_name }, 'departments', function(err, deps) {
-            console.log(deps);
+
+
+    Domain
+        .findOne({
+            name: domain_name
+        })
+        .populate('departments', 'name') // only return the departments name
+        .exec(function (err, dpts) {
+            if (err) return handleError(err);
+
+            console.log('POPULATE deps: %s', dpts);
 
             res.render('domain_info', {
-                domain_name: domain_name,
-                domains: domz,
-                departments: deps
+                deps: dpts,
+                domain_name: domain_name
             })
         })
-    })
+
 })
 
-router.post('/', function(req, res, next) {
+router.post('/', function (req, res, next) {
     console.log('GET REQUEST ON DOMAIN_INFO!!!'); // , req.params.name)
 
-    res.render('domain_info', { dom: 'Request POST forbidden' })
+    res.render('domain_info', {
+        dom: 'Request POST forbidden'
+    })
 })
 
 module.exports = router

@@ -2,25 +2,24 @@ extends layout
 
 block content
   script(type='text/javascript').
-    var departments = #{departments};
+    var departments = #{deps};
   .container
     .jumbotron
-      h1 Domain #{domain_name} info
+      h1 #{domain_name} domain info
   .container
-      each d in domains
         p
-        | name: #{d.name}
+        | name: #{deps.name}
         p
-        | type: #{d.type}
+        | type: #{deps.type}
         p
-        | fqdn: #{d.fqdn}
+        | fqdn: #{deps.fqdn}
         p
-        | description: #{d.description}
+        | description: #{deps.description}
         br
   .container
     p departments:
-    each dep in departments
-      a(href='/department_info/'+ dep.name) - #{dep.name}
+    each dep in deps.departments
+      a(href='/department_info/'+ domain_name+'/'+ dep.name) - #{dep.name}
       br
   .container
     a(href="/department_create_form"): button.btn.btn-default(type="button") Create new department
