@@ -2,12 +2,12 @@ extends layout_d4
 
 block content
   script(type='text/javascript').
-    var departments = #{departments};
+    var departments = #{deps};
   .container
     .jumbotron
-      h1 Available departments
+      h1 Available departments for #{domain_name}
   .container
-      each d in departments
+      each d in deps.departments
         a(href='/department_info/'+ d.name) #{d.name}
         div(style="float: right;")
           a(href='/department_list/delete') [Delete]

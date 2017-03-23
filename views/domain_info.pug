@@ -7,10 +7,6 @@ block content
     .jumbotron
       h1 Domain #{domain_name} info
   .container
-    each dep in departments
-      a(href='/department_info/'+ dep.name) #{dep.name}
-      br
-  .container
       each d in domains
         p
         | name: #{d.name}
@@ -21,3 +17,13 @@ block content
         p
         | description: #{d.description}
         br
+  .container
+    p departments:
+    each dep in departments
+      a(href='/department_info/'+ dep.name) - #{dep.name}
+      br
+  .container
+    a(href="/department_create_form"): button.btn.btn-default(type="button") Create new department
+    br
+  .container
+    a(href="/department_list"): button.btn.btn-default(type="button") Continue

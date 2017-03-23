@@ -20,25 +20,45 @@ var router = express.Router()
 var Domain = require('../../models/domain')
 var Department = require('../../models/department')
 
-router.get('/', function(req, res, next) {
-    Domain.find({ name: 'HPE' }, function(err, dom) {
-        console.log('dom: %s', dom)
+router.get('/', function (req, res, next) {
 
-        // var jsonData = JSON.parse(dom)
-        // console.log('jsonData: %s', jsonData)
-        // for (var i = 0; i < jsonData.departments.length; i++) {
-        //     var dep = jsonData.departments[i]
-        //     console.log(dep.name)
-        // }        //  ?????????????????????
-
-        // var dpts = dom.departments
-
-        console.log('deps: %s', dpts)
-
-        res.render('department_list', {
-            departments: dpts
+    Domain
+        .findOne({
+            name: 'HPE'
         })
-    })
+        .populate('departments', 'name') // only return the departments name
+        .exec(function (err, dpts) {
+            if (err) return handleError(err);
+
+            console.log('deps: %s', dpts);
+            res.render('department_list', {
+                deps: dpts,
+                domain_name: 'HPE'
+            })
+        })
+
+
 })
 
 module.exports = router
+
+
+
+// Domain.find({ name: 'HPE' }, function(err, dom) {
+//     console.log('dom: %s', dom)
+
+//     // var jsonData = JSON.parse(dom)
+//     // console.log('jsonData: %s', jsonData)
+//     // for (var i = 0; i < jsonData.departments.length; i++) {
+//     //     var dep = jsonData.departments[i]
+//     //     console.log(dep.name)
+//     // }        //  ?????????????????????
+
+//     var dpts = dom.departments
+
+//     console.log('deps: %s', dpts)
+
+//     res.render('department_list', {
+//         departments: dpts
+//     })
+// })
