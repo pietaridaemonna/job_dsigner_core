@@ -46,6 +46,7 @@
     "ssh2": "^0.5.4",
     "tingodb": "^0.5.1",
     "typescript": "^2.2.1",
+    "unirest": "^0.5.1",
     "url-to-image": "^1.0.0"
   }
 }
