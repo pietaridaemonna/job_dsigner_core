@@ -42,6 +42,8 @@ var project_list = require('./controllers/user_ui/project_list');
 var project_info = require('./controllers/user_ui/project_info');
 var project_add = require('./controllers/user_ui/project_add');
 
+var upload_form = require('./controllers/user_ui/upload_form');
+var upload_file = require('./controllers/user_ui/upload_file');
 
 var app = express();
 
@@ -86,6 +88,8 @@ app.use('/project_info', project_info);
 app.use('/project_list', project_list);
 app.use('/project_add', project_add);
 
+app.use('/upload_form', upload_form);
+app.use('/upload_file', upload_file);
 
 // ERROR HANDLING ..............................................................
 
