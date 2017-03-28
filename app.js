@@ -25,7 +25,7 @@ var bodyParser = require('body-parser');
 var index = require('./controllers/index');
 var dashboard = require('./controllers/admin/dashboard');
 var jobeditor = require('./controllers/user_ui/jobeditor');
-//var suiteviz = require('./controllers/user_ui/suiteviz');
+var ping = require('./controllers/ping');
 
 var domain_list = require('./controllers/user_ui/domain_list');
 var domain_create_form = require('./controllers/user_ui/domain_create_form');
@@ -90,6 +90,7 @@ app.use('/project_add', project_add);
 
 app.use('/upload_form', upload_form);
 app.use('/upload_file', upload_file);
+app.use('/ping', ping);
 
 // ERROR HANDLING ..............................................................
 
