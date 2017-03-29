@@ -1,0 +1,16 @@
+extends layout_d4
+
+block content
+  script(type='text/javascript').
+    var projects = #{projects};
+  .container
+    .jumbotron
+      h1 Available projects
+  .container
+    form(method="POST", action="/upload_file", enctype="multipart/form-data")
+      input(type="file", name="scriptfile")
+      br
+      input(type="submit" value="upload")
+
+       
+    

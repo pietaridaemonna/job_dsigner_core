@@ -15,41 +15,35 @@
 //     FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 //     ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 
-var express = require('express')
-var router = express.Router()
-var Domain = require('../../models/domain')
-
-router.get('/:domain_name', function (req, res, next) {
-
-    var domain_name = req.params.domain_name
+'use strict'
+var unirest = require('unirest');
+var express = require('express');
+var router = express.Router();
+var ping = require('ping');
 
 
-    Domain
-        .findOne({
-            name: domain_name
-        })
-        .populate('departments', 'name') // only return the departments name
-        .exec(function (err, dpts) {
-            if (err) return handleError(err);
+router.get('/', function (req, res, next) {
 
-            console.log('POPULATE deps: %s', dpts);
+    var hosts = ['15.241.148.65', 'www.google.com', 'localhost'];
+    var output = 'OUT: ';
 
-            res.render('domain_info', {
-                deps: dpts,
-                domain_name: domain_name
-            })
-        })
+    var cfg = {
+        timeout: 25,
+        // WARNING: -i 2 may not work in other platform like window 
+        extra: ["-i 2"],
+    };
 
-})
+    hosts.forEach(function (host) {
+        ping.sys.probe(host, function (isAlive) {
+            var msg = isAlive ? 'host ' + host + ' is alive' : 'host ' + host + ' is dead';
+            output= output+'\n'+msg;
+            console.log('output: %s', output);
+            console.log(msg);
+        }, cfg);
+    });
 
-router.post('/', function (req, res, next) {
-    console.log('GET REQUEST ON DOMAIN_INFO!!!'); // , req.params.name)
+    res.send(output);
+});
 
-    res.render('domain_info', {
-        dom: 'Request POST forbidden'
-    })
-})
 
-module.exports = router
-
-// var replaced = str.split(' ').join('+')
+module.exports = router;

@@ -25,7 +25,7 @@ var bodyParser = require('body-parser');
 var index = require('./controllers/index');
 var dashboard = require('./controllers/admin/dashboard');
 var jobeditor = require('./controllers/user_ui/jobeditor');
-//var suiteviz = require('./controllers/user_ui/suiteviz');
+var ping = require('./controllers/ping');
 
 var domain_list = require('./controllers/user_ui/domain_list');
 var domain_create_form = require('./controllers/user_ui/domain_create_form');
@@ -42,8 +42,19 @@ var project_list = require('./controllers/user_ui/project_list');
 var project_info = require('./controllers/user_ui/project_info');
 var project_add = require('./controllers/user_ui/project_add');
 
+var upload_form = require('./controllers/user_ui/upload_form');
+var upload_file = require('./controllers/user_ui/upload_file');
 
 var app = express();
+
+app.use( function(req, res, next) {  
+  if(!req.secure) {
+    var secureUrl = "https://" + req.headers['host'] + req.url; 
+    res.writeHead(301, { "Location":  secureUrl });
+    res.end();
+  }
+  next();
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -77,6 +88,9 @@ app.use('/project_info', project_info);
 app.use('/project_list', project_list);
 app.use('/project_add', project_add);
 
+app.use('/upload_form', upload_form);
+app.use('/upload_file', upload_file);
+app.use('/ping', ping);
 
 // ERROR HANDLING ..............................................................
 

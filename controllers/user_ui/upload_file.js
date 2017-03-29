@@ -17,39 +17,26 @@
 
 var express = require('express')
 var router = express.Router()
-var Domain = require('../../models/domain')
 
-router.get('/:domain_name', function (req, res, next) {
+var path = require('path')
+var multer = require('multer')
 
-    var domain_name = req.params.domain_name
-
-
-    Domain
-        .findOne({
-            name: domain_name
-        })
-        .populate('departments', 'name') // only return the departments name
-        .exec(function (err, dpts) {
-            if (err) return handleError(err);
-
-            console.log('POPULATE deps: %s', dpts);
-
-            res.render('domain_info', {
-                deps: dpts,
-                domain_name: domain_name
-            })
-        })
-
+var storage = multer.diskStorage({
+  destination: './uploads/',
+  filename: function (req, file, cb) {
+     cb(null, file.originalname)
+  }
 })
 
-router.post('/', function (req, res, next) {
-    console.log('GET REQUEST ON DOMAIN_INFO!!!'); // , req.params.name)
+var upload = multer({ storage: storage })
 
-    res.render('domain_info', {
-        dom: 'Request POST forbidden'
-    })
-})
+router.post('/', upload.single('scriptfile'), function(req, res, next) {
+    console.log('file:', req.file);
+    console.log('body:', req.body);
+    // more code
+
+    res.send('uploaded file');
+});
 
 module.exports = router
 
-// var replaced = str.split(' ').join('+')

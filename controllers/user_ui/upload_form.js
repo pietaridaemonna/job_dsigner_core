@@ -15,41 +15,12 @@
 //     FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 //     ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE
 
-var express = require('express')
-var router = express.Router()
-var Domain = require('../../models/domain')
+var express = require('express');
+var router = express.Router();
 
-router.get('/:domain_name', function (req, res, next) {
+/* GET home page. */
+router.get('/', function(req, res, next) {
+  res.render('upload_form');
+});
 
-    var domain_name = req.params.domain_name
-
-
-    Domain
-        .findOne({
-            name: domain_name
-        })
-        .populate('departments', 'name') // only return the departments name
-        .exec(function (err, dpts) {
-            if (err) return handleError(err);
-
-            console.log('POPULATE deps: %s', dpts);
-
-            res.render('domain_info', {
-                deps: dpts,
-                domain_name: domain_name
-            })
-        })
-
-})
-
-router.post('/', function (req, res, next) {
-    console.log('GET REQUEST ON DOMAIN_INFO!!!'); // , req.params.name)
-
-    res.render('domain_info', {
-        dom: 'Request POST forbidden'
-    })
-})
-
-module.exports = router
-
-// var replaced = str.split(' ').join('+')
+module.exports = router;

@@ -21,14 +21,17 @@ var Department = require('../../models/department');
 
 
 
-router.get('/:department_name', function(req, res, next) {
+router.get('/:domain/:department_name', function(req, res, next) {
 
-    console.log('GET REQUEST ON DOMAIN_INFO!!!'); //, req.params.name);
-    var name = req.params.department_name;
-    Department.find({ name }, 'name type description itin fqdn', function(err, dpts) {
+    //console.log('GET REQUEST ON DOMAIN_INFO!!!'); //, req.params.department_name);
+    var department_name = req.params.department_name;
+    var domain_name = req.params.domain;
+
+    Department.find({ department_name }, 'name type description itin fqdn', function(err, dpts) {
         res.render('department_info', {
-            department_name: name,
-            departments: dpts
+            department_name: department_name,
+            departments: dpts,
+            domain_n: domain_name
         });
     });
 
@@ -36,7 +39,7 @@ router.get('/:department_name', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
 
-    console.log('GET REQUEST ON DEPT_INFO!!!'); //, req.params.name);
+    console.log('GET REQUEST ON DEPT_INFO!!!'); //, req.params.department_name);
 
     res.render('department_info', { dom: 'Request POST forbidden' });
 
