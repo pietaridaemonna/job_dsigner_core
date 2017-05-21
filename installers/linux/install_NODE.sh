@@ -2,8 +2,8 @@
 # Apache 2 license
 
 install_node_DEBIAN_87() {
-    apt-get install curl python-software-properties -y
-    curl -sL https://deb.nodesource.com/setup_7.x | sudo bash -
+    apt-get install curl python-software-properties make gcc g++ libcairo2-dev libjpeg-dev libgif-dev -y
+    curl -sL https://deb.nodesource.com/setup_7.x | bash -
     apt-get install nodejs -y
 }
 
