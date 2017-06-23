@@ -18,5 +18,5 @@ RUN npm install
 # Bundle job_dsigner source
 COPY . /usr/src/job_dsigner
 
-EXPOSE 8080
+EXPOSE 443
 CMD [ "npm", "start" ]
